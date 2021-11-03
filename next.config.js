@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
+const withPWA = require("next-pwa");
 const withOffline = require("next-offline");
-const nextConfig = {
+const runtimeCaching = require("next-pwa/cache");
+const nextConfig = withPWA({
     reactStrictMode: true,
     images: {
         domains: [""],
@@ -27,7 +29,8 @@ const nextConfig = {
     },
     pwa: {
         dest: "public",
+        runtimeCaching,
     },
-};
+});
 
 module.exports = withOffline(nextConfig);
