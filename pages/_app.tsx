@@ -8,6 +8,7 @@ import NProgress from "nprogress";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "nprogress/nprogress.css";
+import { useEffect } from "react";
 import Layout from "../src/components/Layout/Layout";
 
 const theme = extendTheme({
