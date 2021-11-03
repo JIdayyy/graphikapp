@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+
 import { motion } from "framer-motion";
 import { Box } from "@chakra-ui/react";
 import MenuItem from "./Items/MenuItem";
@@ -23,25 +24,25 @@ const menuLinks = [
 
 const MotionBox = motion(Box);
 
-export default function MenuList(): ReactElement {
-    return (
-        <MotionBox
-            shadow="dark-lg"
-            position="fixed"
-            display="flex"
-            flexDirection="column"
-            padding="20px"
-            zIndex={999}
-            backgroundColor="white"
-            height="100%"
-            boxSize="100%"
-            initial={{ x: -10, width: 0 }}
-            animate={{ width: "70%" }}
-            exit={{ width: 0, x: -999 }}
-        >
-            {menuLinks.map((link) => (
-                <MenuItem link={link} />
-            ))}
-        </MotionBox>
-    );
-}
+const MenuList = (): ReactElement => (
+    <MotionBox
+        shadow="dark-lg"
+        position="fixed"
+        display="flex"
+        flexDirection="column"
+        padding="20px"
+        zIndex={999}
+        backgroundColor="white"
+        height="100%"
+        boxSize="100%"
+        initial={{ x: -10, width: 0 }}
+        animate={{ width: "70%" }}
+        exit={{ width: 0, x: -999 }}
+    >
+        {menuLinks.map((link) => (
+            <MenuItem link={link} />
+        ))}
+    </MotionBox>
+);
+
+export default MenuList;

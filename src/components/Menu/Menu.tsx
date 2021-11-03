@@ -1,5 +1,6 @@
-import { AnimatePresence } from "framer-motion";
 import React, { ReactElement } from "react";
+import { AnimatePresence } from "framer-motion";
+import { forwardRef } from "@chakra-ui/react";
 
 import MenuList from "../Lists/MenuList";
 
@@ -7,6 +8,11 @@ interface IProps {
     isMenu: boolean;
 }
 
-export default function Menu({ isMenu }: IProps): ReactElement {
-    return <AnimatePresence>{isMenu && <MenuList />}</AnimatePresence>;
-}
+const Menu = forwardRef(
+    ({ isMenu }: IProps, ref): ReactElement => (
+        <div ref={ref}>
+            <AnimatePresence>{isMenu && <MenuList />}</AnimatePresence>
+        </div>
+    ),
+);
+export default Menu;

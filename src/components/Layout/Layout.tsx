@@ -1,9 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Menu from "../Menu/Menu";
+import useOnClickOutside from "../../utils/useOnCLickOutside";
 
 interface IProps {
     children: ReactElement;
@@ -11,6 +12,12 @@ interface IProps {
 
 export default function Layout({ children }: IProps): ReactElement {
     const [isMenu, setIsMenu] = useState(false);
+    const ref = React.useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (): void => {
+        setIsMenu(false);
+    };
+    useOnClickOutside(ref, handleClickOutside);
 
     return (
         <Box
@@ -59,7 +66,8 @@ export default function Layout({ children }: IProps): ReactElement {
                 height="100%"
                 width="100%"
             >
-                <Menu isMenu={isMenu} />
+                <Menu ref={ref} isMenu={isMenu} />
+
                 <Navbar setIsMenu={setIsMenu} />
                 {children}
             </Box>
