@@ -1,0 +1,5 @@
+node_modules
+__generated__
+next.config.js
+tailwind.config.js
+postcss.config.js
