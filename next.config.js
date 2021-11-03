@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const withOffline = require("next-offline");
+const nextConfig = {
     reactStrictMode: true,
     images: {
         domains: [""],
@@ -24,4 +25,9 @@ module.exports = {
             },
         ];
     },
+    pwa: {
+        dest: "public",
+    },
 };
+
+module.exports = withOffline(nextConfig);

@@ -11,19 +11,7 @@ interface IProps {
 
 export default function Layout({ children }: IProps): ReactElement {
     const [isMenu, setIsMenu] = useState(false);
-    useEffect(() => {
-        const doc = document.documentElement.requestFullscreen({
-            navigationUI: "hide",
-        });
-        console.log(doc);
-        window.addEventListener("load", () => {
-            // Set a timeout...
-            setTimeout(() => {
-                // Hide the address bar!
-                window.scrollTo(0, 1);
-            }, 0);
-        });
-    }, []);
+
     return (
         <Box
             height="100vh"
@@ -35,6 +23,14 @@ export default function Layout({ children }: IProps): ReactElement {
         >
             <Head>
                 <meta name="apple-mobile-web-app-capable" content="yes" />
+
+                <link rel="manifest" href="/manifest.json" />
+                <meta name="theme-color" content="#8C65CE" />
+                <meta
+                    name="apple-mobile-web-app-status-bar"
+                    content="#8C65CE"
+                />
+                <link rel="apple-touch-icon" href="/about.png" />
             </Head>
             <Box
                 position="fixed"
