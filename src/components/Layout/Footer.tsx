@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer(): ReactElement {
     return (
@@ -17,13 +18,15 @@ export default function Footer(): ReactElement {
             alignItems="center"
             display="flex"
         >
-            <Image
-                src="/icons/FooterIcons/dots.png"
-                width={50}
-                height={50}
-                quality={100}
-                priority
-            />
+            <Link passHref href="/">
+                <Image
+                    src="/icons/FooterIcons/dots.png"
+                    width={50}
+                    height={50}
+                    quality={100}
+                    priority
+                />
+            </Link>
             <Image
                 src="/icons/FooterIcons/draws.png"
                 width={30}
@@ -31,13 +34,15 @@ export default function Footer(): ReactElement {
                 quality={100}
                 priority
             />
-            <Image
-                src="/icons/FooterIcons/dice.png"
-                width={30}
-                height={30}
-                quality={100}
-                priority
-            />
+            <Link passHref href="/random">
+                <Image
+                    src="/icons/FooterIcons/dice.png"
+                    width={30}
+                    height={30}
+                    quality={100}
+                    priority
+                />
+            </Link>
         </Box>
     );
 }
