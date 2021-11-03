@@ -28,7 +28,7 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const notify = () => toast("Hey Bienvenue à toi !");
+    const notify = () => toast.dark("Hey Bienvenue à toi 👋 !");
 
     useEffect(() => {
         notify();

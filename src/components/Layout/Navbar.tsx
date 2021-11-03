@@ -3,15 +3,20 @@ import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiDocumentAdd } from "react-icons/hi";
 
-import React, { ReactElement } from "react";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 
-export default function Navbar(): ReactElement {
+interface IProps {
+    setIsMenu: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Navbar({ setIsMenu }: IProps): ReactElement {
     return (
         <Box
             p={4}
+            zIndex={1000}
             position="fixed"
             top="0"
-            shadow="2xl"
+            shadow="dark-lg"
             backgroundColor="purple.default"
             height="28"
             width="100%"
@@ -20,8 +25,18 @@ export default function Navbar(): ReactElement {
             alignItems="center"
             display="flex"
         >
-            <Box width="100%" display="flex" justifyContent="space-between">
-                <GiHamburgerMenu size={30} color="white" />
+            <Box
+                zIndex={10}
+                width="100%"
+                display="flex"
+                justifyContent="space-between"
+            >
+                <GiHamburgerMenu
+                    cursor="pointer"
+                    onClick={() => setIsMenu((c) => !c)}
+                    size={30}
+                    color="white"
+                />
                 <HiDocumentAdd size={30} color="white" />
             </Box>
             <InputGroup>
