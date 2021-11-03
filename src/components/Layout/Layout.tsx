@@ -16,6 +16,13 @@ export default function Layout({ children }: IProps): ReactElement {
             navigationUI: "hide",
         });
         console.log(doc);
+        window.addEventListener("load", () => {
+            // Set a timeout...
+            setTimeout(() => {
+                // Hide the address bar!
+                window.scrollTo(0, 1);
+            }, 0);
+        });
     }, []);
     return (
         <Box
