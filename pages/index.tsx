@@ -24,7 +24,6 @@ const Home: NextPage = () => {
             paddingX={1}
             fontFamily="heading"
             height="100%"
-            backgroundColor="black"
             width="100%"
             display="flex"
             flexDirection="column"
@@ -51,7 +50,7 @@ const Home: NextPage = () => {
                 justifyContent="center"
             >
                 {fakeThemes.map((theme) => (
-                    <ThemeCard theme={theme} />
+                    <ThemeCard key={theme} theme={theme} />
                 ))}
             </Box>
         </Box>

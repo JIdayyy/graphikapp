@@ -7,7 +7,8 @@ export default function Footer(): ReactElement {
     return (
         <Box
             p={4}
-            shadow="2xl"
+            shadow="dark-lg"
+            zIndex={999}
             position="fixed"
             width="100%"
             bottom="0"
@@ -19,13 +20,15 @@ export default function Footer(): ReactElement {
             display="flex"
         >
             <Link passHref href="/">
-                <Image
-                    src="/icons/FooterIcons/dots.png"
-                    width={50}
-                    height={50}
-                    quality={100}
-                    priority
-                />
+                <button type="button">
+                    <Image
+                        src="/icons/FooterIcons/dots.png"
+                        width={50}
+                        height={50}
+                        quality={100}
+                        priority
+                    />
+                </button>
             </Link>
             <Image
                 src="/icons/FooterIcons/draws.png"
@@ -35,13 +38,15 @@ export default function Footer(): ReactElement {
                 priority
             />
             <Link passHref href="/random">
-                <Image
-                    src="/icons/FooterIcons/dice.png"
-                    width={30}
-                    height={30}
-                    quality={100}
-                    priority
-                />
+                <button type="button">
+                    <Image
+                        src="/icons/FooterIcons/dice.png"
+                        width={30}
+                        height={30}
+                        quality={100}
+                        priority
+                    />
+                </button>
             </Link>
         </Box>
     );
