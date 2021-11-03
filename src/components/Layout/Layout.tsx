@@ -12,7 +12,14 @@ interface IProps {
 export default function Layout({ children }: IProps): ReactElement {
     const [isMenu, setIsMenu] = useState(false);
     return (
-        <Box height="100vh" width="100vw" backgroundColor="black">
+        <Box
+            height="100vh"
+            width="100vw"
+            backgroundColor="black"
+            position="absolute"
+            top={0}
+            left={0}
+        >
             <Head>
                 <meta name="apple-mobile-web-app-capable" content="yes" />
             </Head>
