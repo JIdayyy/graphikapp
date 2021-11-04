@@ -1,15 +1,14 @@
 import React, { ChangeEvent, ReactElement, useState } from "react";
 import { useMutation } from "react-query";
-import { Input, Box, Button, Text } from "@chakra-ui/react";
+import { Input, Box, Button, Text, FormControl } from "@chakra-ui/react";
 import Image from "next/image";
 import AXIOS from "../../../AXIOS/AXIOS";
-
-type Error = { message: string; type: string };
 
 export default function UploadImageForm(): ReactElement {
     const [image, setImage] = useState<File | undefined>();
     const [imageResponse, setImageResponse] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const [progress, setProgress] = useState<number>(0);
 
     const { mutateAsync } = useMutation(
         (newImage: FormData) =>
@@ -17,40 +16,25 @@ export default function UploadImageForm(): ReactElement {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                onUploadProgress: (p) => {
+                    setProgress((p.loaded / p.total) * 100);
+                },
             })
                 .then((r) => r.data)
                 .catch((err) => {
-                    console.log(err);
-                    if (err.response) {
-                        setError(err.response.message);
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.log(err.response.data);
-                        setError(err.response.data.message);
-                        console.log(err.response.status);
-                        console.log(err.response.headers);
-                    } else if (err.request) {
-                        // The request was made but no response was received
-                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                        // http.ClientRequest in node.js
-                        console.log(err.request);
-                    } else {
-                        // Something happened in setting up the request that triggered an Error
-                        console.log("Error", err.message);
-                    }
-                    throw err;
+                    setError(err.response.data.message);
                 }),
         {
             onSuccess: (data) => {
-                console.log(data);
-                if (data.type === "FILE_TOO_BIG") {
-                    return setError(data.message);
+                if (data !== undefined) {
+                    setImageResponse(data.url);
                 }
-                return setImageResponse(data.url);
+                setProgress(0);
             },
             onError: (err) => {
-                console.log(err);
+                console.log("ERROR UPLOAD", err);
             },
+            useErrorBoundary: true,
         },
     );
 
@@ -61,6 +45,7 @@ export default function UploadImageForm(): ReactElement {
     };
 
     const fileUpload = async () => {
+        setProgress(0);
         if (image) {
             const formData = new FormData();
             formData.append("image", image);
@@ -69,25 +54,57 @@ export default function UploadImageForm(): ReactElement {
     };
 
     return (
-        <form action="">
+        <FormControl
+            p={4}
+            height="100%"
+            width="100%"
+            display="flex"
+            justifyContent="space-between"
+            flexDirection="column"
+            color="white"
+            action=""
+        >
             <Input
+                width="100%"
                 accept="image/*"
                 multiple={false}
                 type="file"
                 name="image"
                 onChange={handleImage}
             />
-            <input
+            <Input
+                width="100%"
+                onChange={handleImage}
+                accept="image/*"
+                multiple={false}
                 type="file"
                 name="image"
-                accept="image/*"
                 capture="environment"
             />
+
+            <Text>Upload {progress ? Math.floor(progress) : "0"}% </Text>
+            <Box
+                display="flex"
+                justifyContent="start"
+                borderColor="gray.300"
+                width="100%"
+                height="10"
+                border="2px"
+            >
+                <Box
+                    backgroundColor="white"
+                    height="100%"
+                    width="100%"
+                    style={{ width: `${progress}%` }}
+                />
+            </Box>
             {error && <Text color="text.error">{error}</Text>}
-            <Button onClick={fileUpload}>Upload</Button>
+            <Button colorScheme="purple" type="button" onClick={fileUpload}>
+                ENVOYER
+            </Button>
             <Box position="relative" width={200} height={200}>
                 {imageResponse && <Image layout="fill" src={imageResponse} />}
             </Box>
-        </form>
+        </FormControl>
     );
 }

@@ -16,6 +16,7 @@ import useWindowSize from "../src/Hooks/useWindowDimension";
 import DesktopLayout from "../src/components/Layout/DesktopLayout";
 import theme from "../styles/theme";
 import checkMobile from "../src/lib/checkMobile";
+import ErrorBoundary from "../src/ErrorBoundary";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -44,12 +45,16 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <CSSReset />
                 {!isDesktop && isDesktop !== null && (
                     <Layout>
-                        <Component {...pageProps} />
+                        <ErrorBoundary>
+                            <Component {...pageProps} />
+                        </ErrorBoundary>
                     </Layout>
                 )}
                 {isDesktop && isDesktop !== null && (
                     <DesktopLayout>
-                        <Component {...pageProps} />
+                        <ErrorBoundary>
+                            <Component {...pageProps} />
+                        </ErrorBoundary>
                     </DesktopLayout>
                 )}
                 <ToastContainer autoClose={3000} />

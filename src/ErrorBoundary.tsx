@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Component, ErrorInfo, ReactNode } from "react";
+import ErrorDisplay from "./components/ErrorDisplay";
 
 interface Props {
     children: ReactNode;
@@ -21,14 +22,14 @@ class ErrorBoundary extends Component<Props, State> {
     }
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        console.error("Uncaught error:", error, errorInfo);
+        console.error("ERROR BOUNDARY:", error, errorInfo);
     }
 
     public render() {
         const { hasError } = this.state;
         const { children } = this.props;
         if (hasError) {
-            return <h1>Sorry.. there was an error</h1>;
+            return <ErrorDisplay />;
         }
 
         return children;
