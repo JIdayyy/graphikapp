@@ -2,7 +2,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import Dice from "../src/components/Assets/Dice";
-import useDiceRotate from "../src/utils/useDiceRotate";
+import useDiceRotate from "../src/Hooks/useDiceRotate";
 
 export default function Random(): ReactElement {
     const rotate = useDiceRotate();

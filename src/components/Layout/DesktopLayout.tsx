@@ -1,24 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { ReactElement, useState } from "react";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import Menu from "../Menu/Menu";
-import useOnClickOutside from "../../Hooks/useOnCLickOutside";
+import React, { ReactElement } from "react";
 
 interface IProps {
     children: ReactElement;
 }
 
-export default function Layout({ children }: IProps): ReactElement {
-    const [isMenu, setIsMenu] = useState(false);
-    const ref = React.useRef<HTMLDivElement>(null);
-
-    const handleClickOutside = (): void => {
-        setIsMenu(false);
-    };
-    useOnClickOutside(ref, handleClickOutside);
-
+export default function DesktopLayout({ children }: IProps): ReactElement {
     return (
         <Box
             height="100vh"
@@ -59,18 +47,8 @@ export default function Layout({ children }: IProps): ReactElement {
                 />
                 <link rel="apple-touch-icon" href="/about.png" />
             </Head>
-            <Box
-                position="fixed"
-                paddingTop="28"
-                paddingBottom="16"
-                height="100%"
-                width="100%"
-            >
-                <Menu ref={ref} isMenu={isMenu} />
-
-                <Navbar setIsMenu={setIsMenu} />
+            <Box position="fixed" height="100%" width="100%">
                 {children}
-                <Footer />
             </Box>
         </Box>
     );

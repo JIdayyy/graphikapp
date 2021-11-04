@@ -1,45 +1,47 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider, extendTheme, CSSReset } from "@chakra-ui/react";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import "@fontsource/archivo";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "nprogress/nprogress.css";
-import { useEffect } from "react";
+import "react-multi-carousel/lib/styles.css";
+import { useEffect, useState } from "react";
 import Layout from "../src/components/Layout/Layout";
-
-const theme = extendTheme({
-    fonts: {
-        heading: "Archivo",
-        body: "Archivo",
-    },
-    colors: {
-        purple: {
-            default: "#8C65CE",
-        },
-    },
-});
+import useWindowSize from "../src/Hooks/useWindowDimension";
+import DesktopLayout from "../src/components/Layout/DesktopLayout";
+import theme from "../styles/theme";
+import checkMobile from "../src/lib/checkMobile";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const notify = () => toast.dark("Hey Bienvenue à toi 👋 !");
+    const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
+    const { width } = useWindowSize();
+    const router = useRouter();
 
     useEffect(() => {
-        notify();
-    }, []);
+        checkMobile(width, setIsDesktop, router);
+    }, [width]);
 
     return (
         <ChakraProvider theme={theme}>
             <CSSReset />
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            {!isDesktop && isDesktop !== null && (
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            )}
+            {isDesktop && isDesktop !== null && (
+                <DesktopLayout>
+                    <Component {...pageProps} />
+                </DesktopLayout>
+            )}
             <ToastContainer autoClose={3000} />
         </ChakraProvider>
     );

@@ -3,23 +3,14 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import ThemeCard from "../src/components/Cards/ThemeCard";
 import SwitchButton from "../src/components/Buttons/SwitchButton";
-
-const fakeThemes = [
-    "Bateau",
-    "Action",
-    "Pêche",
-    "Passion",
-    "Bateau",
-    "Action",
-    "Pêche",
-    "Passion",
-];
+import scrollBar from "../src/components/Assets/scrollBar";
+import fakeThemes from "../FakeDatas/fakeThemes";
 
 const Home: NextPage = () => {
     const [isList, setIsList] = useState(false);
-
     return (
         <Box
+            sx={scrollBar}
             overflowY="scroll"
             paddingX={1}
             fontFamily="heading"

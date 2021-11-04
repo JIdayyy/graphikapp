@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { AnimatePresence } from "framer-motion";
 import { forwardRef } from "@chakra-ui/react";
 
-import MenuList from "../Lists/MenuList";
+import MenuList from "./MenuList";
 
 interface IProps {
     isMenu: boolean;

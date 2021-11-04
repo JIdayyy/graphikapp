@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-
 import { motion } from "framer-motion";
 import { Box } from "@chakra-ui/react";
 import MenuItem from "./Items/MenuItem";
