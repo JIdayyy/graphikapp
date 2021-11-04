@@ -1,7 +1,6 @@
-import { Box, Text, Portal } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React, { ReactElement, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import useHover from "../../Hooks/useHover";
 
 import DrawingCardHoverDOM from "./DrawingCardHover";
@@ -9,8 +8,6 @@ import DrawingCardHoverDOM from "./DrawingCardHover";
 interface Props {
     drawing: Drawing;
 }
-
-const MotionBox = motion(Box);
 
 export default function DrawingCardDesktop({ drawing }: Props): ReactElement {
     const hoverRef = useRef(null);
