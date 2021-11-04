@@ -5,7 +5,7 @@ const runtimeCaching = require("next-pwa/cache");
 const nextConfig = withPWA({
     reactStrictMode: true,
     images: {
-        domains: [""],
+        domains: ["res.cloudinary.com"],
     },
     async headers() {
         return [

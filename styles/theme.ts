@@ -13,6 +13,9 @@ const theme = extendTheme({
             mobile: "#000000",
             desktop: "#141414",
         },
+        text: {
+            error: "#FF0000",
+        },
     },
 });
 export default theme;

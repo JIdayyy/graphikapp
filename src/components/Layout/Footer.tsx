@@ -30,13 +30,18 @@ export default function Footer(): ReactElement {
                     />
                 </button>
             </Link>
-            <Image
-                src="/icons/FooterIcons/draws.png"
-                width={30}
-                height={30}
-                quality={100}
-                priority
-            />
+            <Link passHref href="/upload">
+                <button type="button">
+                    <Image
+                        src="/icons/FooterIcons/draws.png"
+                        width={30}
+                        height={30}
+                        quality={100}
+                        priority
+                    />
+                </button>
+            </Link>
+
             <Link passHref href="/random">
                 <button type="button">
                     <Image
