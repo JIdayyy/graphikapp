@@ -4,7 +4,7 @@ import prisma from "../../../prisma/client";
 
 const createDrawing = async (drawing: DrawingInput) => {
     const { drawing_name, author_id, theme_id, url } = drawing;
-
+    console.log(theme_id);
     const newDrawing = await prisma.drawing.create({
         data: {
             drawing_name,

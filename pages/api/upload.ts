@@ -7,10 +7,9 @@ import cloudinary from "cloudinary";
 import createDrawing from "./lib/createDrawing";
 import { DrawingInput } from "../..";
 
-type Data = {
+type ApiError = {
     type: string;
     message: string;
-    url: string;
 };
 
 export const config = {
@@ -40,52 +39,62 @@ const signUpload = async () => {
 
 const UploadHandler = async (
     req: NextApiRequest,
-    res: NextApiResponse<Data | { message: string } | DrawingInput>,
+    res: NextApiResponse<ApiError | { drawing_url: string } | DrawingInput>,
 ) => {
-    // const { drawing_name, author_id, theme_id } = req.body;
-
     try {
-        const { files: incomingFile } = await new Promise((resolve, reject) => {
-            const form = new IncomingForm();
+        const { files: incomingFile, fields: formFields } = await new Promise(
+            (resolve, reject) => {
+                const form = new IncomingForm();
 
-            form.parse(req, (err, fields, files): void => {
-                if (err) return reject(err);
-                return resolve({ files });
-            });
-        });
-
-        if (incomingFile.image.size > 1) {
+                form.parse(req, (err, fields, files): void => {
+                    if (err) return reject(err);
+                    return resolve({ files, fields });
+                });
+            },
+        );
+        const { drawing_name, author_id, theme_id } = formFields;
+        if (incomingFile.image.size > 10000000) {
             return res.status(413).send({
                 type: "FILE_TOO_BIG",
                 message: "File is too big, limit is 10Mo",
             });
         }
 
-        await cloudinary.v2.uploader.upload(
+        const cloudinaryRes = await cloudinary.v2.uploader.upload(
             incomingFile.image.filepath,
             signUpload(),
             async (error, result) => {
                 if (error) {
                     console.log(error);
-                    return res
-                        .status(500)
-                        .send({ message: "Error during upload" });
+                    return res.status(500).send({
+                        message: "Error during upload",
+                        type: "CLOUDINARY_ERROR",
+                    });
                 }
                 if (result) {
+                    console.log("UPLOADED SUCCESSFULLY");
                     const newDrawing = await createDrawing({
-                        author_id: "2e39c0b4-ad19-4412-b9a7-d42b226a27e6",
-                        drawing_name: "testtesttesttest",
-                        theme_id: "85ad1403-8819-4301-b593-3368c1847243",
+                        author_id,
+                        drawing_name,
+                        theme_id,
                         url: result.secure_url,
                     });
-                    return res.status(200).send(newDrawing);
+
+                    return console.log(
+                        "Drawing saved successfully",
+                        newDrawing,
+                    );
                 }
-                return res.status(500).send({ message: "Error during upload" });
+                return result;
             },
         );
-        return res.status(500).send({ message: "Error during upload" });
+
+        return res.status(201).send({ drawing_url: cloudinaryRes.secure_url });
     } catch (error) {
-        return res.status(500).send({ message: "Error during upload" });
+        return res
+            .status(500)
+            .send({ message: "Error during upload", type: "UPLOAD_ERROR" });
     }
 };
+
 export default UploadHandler;

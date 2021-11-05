@@ -12,7 +12,6 @@ import "react-multi-carousel/lib/styles.css";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "../src/components/Layout/Layout";
-import useWindowSize from "../src/Hooks/useWindowDimension";
 import DesktopLayout from "../src/components/Layout/DesktopLayout";
 import theme from "../styles/theme";
 import checkMobile from "../src/lib/checkMobile";
@@ -32,12 +31,12 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
-    const { width } = useWindowSize();
+
     const router = useRouter();
 
     useEffect(() => {
-        checkMobile(width, setIsDesktop, router);
-    }, [width]);
+        checkMobile(setIsDesktop, router);
+    }, []);
 
     return (
         <QueryClientProvider client={queryClient}>

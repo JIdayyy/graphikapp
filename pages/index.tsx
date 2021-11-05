@@ -38,7 +38,7 @@ const Home: NextPage = () => {
                 flexWrap="wrap"
                 display="flex"
                 flexDirection="row"
-                justifyContent="center"
+                justifyContent="start"
             >
                 {fakeThemes.map((theme) => (
                     <ThemeCard key={theme} theme={theme} />

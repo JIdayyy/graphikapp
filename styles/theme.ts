@@ -17,5 +17,8 @@ const theme = extendTheme({
             error: "#FF0000",
         },
     },
+    boxShadow: {
+        input: "inset 0px 1px 8px rgba(0, 0, 0, 0.8)",
+    },
 });
 export default theme;
