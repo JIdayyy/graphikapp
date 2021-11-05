@@ -4,7 +4,7 @@ import { useState } from "react";
 import ThemeCard from "../src/components/Cards/ThemeCard";
 import SwitchButton from "../src/components/Buttons/SwitchButton";
 import scrollBar from "../src/components/Assets/scrollBar";
-import fakeThemes from "../FakeDatas/fakeThemes";
+import fakeThemes from "../src/FakeDatas/fakeThemes";
 
 const Home: NextPage = () => {
     const [isList, setIsList] = useState(false);

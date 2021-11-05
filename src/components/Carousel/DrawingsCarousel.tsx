@@ -1,6 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import fakeDrawings from "../../../FakeDatas/fakeDrawings";
+import fakeDrawings from "../../FakeDatas/fakeDrawings";
 import DrawingCardDesktop from "../Cards/DrawingCardDesktop";
 
 const responsive = {

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { UAParser } from "ua-parser-js";
-import AXIOS from "../../../AXIOS/AXIOS";
+import axiosInstance from "../../fetcher/axiosInstance";
 import { Theme } from ".prisma/client";
 
 const parser = new UAParser();
@@ -40,22 +40,27 @@ export default function UploadImageForm(): ReactElement {
         data: ThemesRes,
         isLoading,
         error: queryError,
-    } = useQuery("getThemes", () => AXIOS.get("/themes").then((r) => r.data), {
-        onSuccess: (data) => {
-            setThemeList(data);
+    } = useQuery(
+        "getThemes",
+        () => axiosInstance.get("/themes").then((r) => r.data),
+        {
+            onSuccess: (data) => {
+                setThemeList(data);
+            },
         },
-    });
+    );
 
     const { mutateAsync } = useMutation(
         (newImage: FormData) =>
-            AXIOS.post("/upload", newImage, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                onUploadProgress: (p) => {
-                    setProgress((p.loaded / p.total) * 100);
-                },
-            })
+            axiosInstance
+                .post("/upload", newImage, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                    onUploadProgress: (p) => {
+                        setProgress((p.loaded / p.total) * 100);
+                    },
+                })
                 .then((r) => r.data)
                 .catch((err) => {
                     setError(err.response.data.message);

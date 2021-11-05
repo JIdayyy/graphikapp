@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import fakeThemes from "../../FakeDatas/fakeThemes";
+import fakeThemes from "../../src/FakeDatas/fakeThemes";
 import scrollBar from "../../src/components/Assets/scrollBar";
 import DrawingsCarousel from "../../src/components/Carousel/DrawingsCarousel";
 
