@@ -1,6 +1,5 @@
 {
     "schemaVersion": 2,
-    "templateId": "node/14.17.6",
     "dockerfileLines": [
         "FROM socialengine/nginx-spa:latest",
         "COPY ./.next /app",
