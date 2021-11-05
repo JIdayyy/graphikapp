@@ -14,8 +14,8 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { UAParser } from "ua-parser-js";
+import { TTheme } from "../../..";
 import axiosInstance from "../../fetcher/axiosInstance";
-import { Theme } from ".prisma/client";
 
 const parser = new UAParser();
 
@@ -24,13 +24,14 @@ type BodyPost = {
     theme_id?: string;
     drawing_name?: string;
 };
+
 export default function UploadImageForm(): ReactElement {
     const [image, setImage] = useState<File | undefined>();
     const [postFormData, setPostFormData] = useState<BodyPost | null>();
     const [imageResponse, setImageResponse] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [progress, setProgress] = useState<number>(0);
-    const [themeList, setThemeList] = useState<Theme[]>([]);
+    const [themeList, setThemeList] = useState<TTheme[]>([]);
 
     const device = parser.getDevice();
 

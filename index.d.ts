@@ -1,10 +1,16 @@
 import Drawing from ".prisma/client";
 
-type TDrawing = {
+export type TDrawing = {
     id: string;
     name: string;
     url: string;
-    theme: string;
+    theme: TTheme;
+};
+
+export type TTheme = {
+    id: string;
+    name: string;
+    drawings: TDrawing[];
 };
 
 type DrawingInput = Omit<Drawing.Drawing, "id">;
