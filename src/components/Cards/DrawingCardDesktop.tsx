@@ -4,9 +4,10 @@ import Image from "next/image";
 import useHover from "../../Hooks/useHover";
 
 import DrawingCardHoverDOM from "./DrawingCardHover";
+import { TDrawing } from "../../..";
 
 interface Props {
-    drawing: Drawing;
+    drawing: TDrawing;
 }
 
 export default function DrawingCardDesktop({ drawing }: Props): ReactElement {
