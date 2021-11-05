@@ -34,8 +34,9 @@ const MenuList = (): ReactElement => (
         backgroundColor="white"
         height="100%"
         boxSize="100%"
-        initial={{ x: -10, width: 0 }}
-        animate={{ width: "70%" }}
+        initial={{ x: -20, width: 0 }}
+        animate={{ width: "70%", x: -20 }}
+        transition={{ default: { duration: 0.5 } }}
         exit={{ width: 0, x: -999 }}
     >
         {menuLinks.map((link) => (
