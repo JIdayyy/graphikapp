@@ -10,7 +10,7 @@ import { TDrawing } from "../../..";
 interface Props {
     isHover: boolean;
     drawing: TDrawing;
-    hoverRef?: React.RefObject<HTMLDivElement>;
+    hoverRef: React.RefObject<HTMLDivElement>;
 }
 
 const MotionBox = motion(Box);

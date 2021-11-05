@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { ChangeEvent, ReactElement, useState } from "react";
 import { useMutation } from "react-query";
 import { Input, Box, Button, Text, FormControl } from "@chakra-ui/react";

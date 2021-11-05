@@ -1,9 +1,7 @@
 import React, { ReactElement } from "react";
-import { Text, Box, Container } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { Text, Container } from "@chakra-ui/react";
 
 export default function ErrorDisplay(): ReactElement {
-    const history = useRouter();
     return (
         <Container>
             <Text color="white">
