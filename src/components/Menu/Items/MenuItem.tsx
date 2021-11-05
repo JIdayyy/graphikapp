@@ -21,8 +21,10 @@ const MenuItem = ({ link }: Props): JSX.Element => (
         <MotionText
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
             fontWeight="bold"
-            fontSize="xl"
+            fontSize="2xl"
+            marginY="0.5rem"
             color="purple.default"
         >
             {link.name}

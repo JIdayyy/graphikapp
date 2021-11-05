@@ -25,7 +25,8 @@
             "@styles/*": ["src/styles/*"],
             "@styles": ["src/styles"],
             "@services/*": ["src/services/*"],
-            "@services": ["src/services"]
+            "@services": ["src/services"],
+            "@prisma": ["prisma/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

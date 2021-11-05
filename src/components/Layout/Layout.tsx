@@ -4,7 +4,7 @@ import React, { ReactElement, useState } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Menu from "../Menu/Menu";
-import useOnClickOutside from "../../Hooks/useOnCLickOutside";
+// import useOnClickOutside from "../../Hooks/useOnCLickOutside";
 
 interface IProps {
     children: ReactElement;
@@ -14,10 +14,10 @@ export default function Layout({ children }: IProps): ReactElement {
     const [isMenu, setIsMenu] = useState(false);
     const ref = React.useRef<HTMLDivElement>(null);
 
-    const handleClickOutside = (): void => {
-        setIsMenu(false);
-    };
-    useOnClickOutside(ref, handleClickOutside);
+    // const handleClickOutside = (): void => {
+    //     setIsMenu(false);
+    // };
+    // useOnClickOutside(ref, handleClickOutside);
 
     return (
         <Box

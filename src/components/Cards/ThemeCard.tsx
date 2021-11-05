@@ -25,8 +25,18 @@ export default function ThemeCard({ theme }: Props): ReactElement {
             >
                 <Image src="/images/picture.jpg" layout="fill" />
             </Box>
-            <Box p={2} height="40%" width="100%">
+            <Box
+                p={2}
+                height="40%"
+                width="100%"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+            >
                 <Text color="purple.default">{theme}</Text>
+                <Text fontSize="10" color="white">
+                    0 Dessins
+                </Text>
             </Box>
         </Box>
     );

@@ -6,7 +6,6 @@ import { IncomingForm } from "formidable";
 import cloudinary from "cloudinary";
 import createDrawing from "./lib/createDrawing";
 import { DrawingInput } from "../..";
-import { Drawing } from ".prisma/client";
 
 type ApiError = {
     type: string;
@@ -40,9 +39,7 @@ const signUpload = async () => {
 
 const UploadHandler = async (
     req: NextApiRequest,
-    res: NextApiResponse<
-        ApiError | Drawing | { message: string } | DrawingInput
-    >,
+    res: NextApiResponse<ApiError | { drawing_url: string } | DrawingInput>,
 ) => {
     try {
         const { files: incomingFile, fields: formFields } = await new Promise(
@@ -63,31 +60,36 @@ const UploadHandler = async (
             });
         }
 
-        await cloudinary.v2.uploader.upload(
+        const cloudinaryRes = await cloudinary.v2.uploader.upload(
             incomingFile.image.filepath,
             signUpload(),
             async (error, result) => {
                 if (error) {
                     console.log(error);
-                    return res
-                        .status(500)
-                        .send({ message: "Error during upload" });
+                    return res.status(500).send({
+                        message: "Error during upload",
+                        type: "CLOUDINARY_ERROR",
+                    });
                 }
                 if (result) {
+                    console.log("UPLOADED SUCCESSFULLY");
                     const newDrawing = await createDrawing({
                         author_id,
                         drawing_name,
                         theme_id,
                         url: result.secure_url,
                     });
-                    return res.status(200).send(newDrawing);
+
+                    return console.log(
+                        "Drawing saved successfully",
+                        newDrawing,
+                    );
                 }
-                return res.status(500).send({ message: "Error during upload" });
+                return result;
             },
         );
-        return res
-            .status(500)
-            .send({ message: "Error during upload", type: "UPLOAD_ERROR" });
+
+        return res.status(201).send({ drawing_url: cloudinaryRes.secure_url });
     } catch (error) {
         return res
             .status(500)

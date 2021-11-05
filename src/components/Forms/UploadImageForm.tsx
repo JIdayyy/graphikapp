@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable no-console */
 import React, { ChangeEvent, ReactElement, useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -7,7 +8,9 @@ import {
     Button,
     Text,
     FormControl,
+    InputLeftAddon,
     Select,
+    InputGroup,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { UAParser } from "ua-parser-js";
@@ -28,6 +31,7 @@ export default function UploadImageForm(): ReactElement {
     const [error, setError] = useState<string>("");
     const [progress, setProgress] = useState<number>(0);
     const [themeList, setThemeList] = useState<Theme[]>([]);
+
     const device = parser.getDevice();
 
     console.log(themeList);
@@ -62,6 +66,7 @@ export default function UploadImageForm(): ReactElement {
                     setImageResponse(data.url);
                 }
                 setProgress(0);
+                setError("DESSIN ENVOYE AVEC SUCCES !");
             },
             onError: (err) => {
                 console.log("ERROR UPLOAD", err);
@@ -90,19 +95,31 @@ export default function UploadImageForm(): ReactElement {
             ...postFormData,
             [e.target.name]: e.target.value,
         });
+        console.log(postFormData);
+    };
+
+    const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+        setPostFormData({
+            ...postFormData,
+            [e.target.name]: e.target.value,
+        });
     };
 
     const fileUpload = async () => {
         setProgress(0);
         if (image && postFormData) {
+            console.log(postFormData.author_id, postFormData.theme_id);
             const formData = new FormData();
             formData.append("image", image);
-            formData.append("author_id", postFormData.author_id as string);
+            formData.append(
+                "author_id",
+                "2e39c0b4-ad19-4412-b9a7-d42b226a27e6" as string,
+            );
+            formData.append("theme_id", postFormData.theme_id as string);
             formData.append(
                 "drawing_name",
                 postFormData.drawing_name as string,
             );
-            formData.append("theme_id", postFormData.theme_id as string);
             await mutateAsync(formData);
         }
     };
@@ -119,12 +136,24 @@ export default function UploadImageForm(): ReactElement {
             color="white"
             action=""
         >
-            <Image
-                src="/icons/drawing_upload.png"
-                width={100}
-                height={100}
-                layout="fixed"
-            />
+            <Box
+                position="relative"
+                display="flex"
+                justifyContent="center"
+                width={200}
+                height={200}
+            >
+                {imageResponse || image ? (
+                    <Image layout="fill" src={URL.createObjectURL(image)} />
+                ) : (
+                    <Image
+                        src="/icons/drawing_upload.png"
+                        width={100}
+                        height={100}
+                        layout="fixed"
+                    />
+                )}
+            </Box>
             <Input
                 boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.8)"
                 width="100%"
@@ -145,58 +174,70 @@ export default function UploadImageForm(): ReactElement {
                     capture="environment"
                 />
             )}
-            <Input
-                color="black"
-                boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
-                backgroundColor="gray.100"
-                width="100%"
-                type="text"
-                value={postFormData?.author_id}
-                name="author_id"
-                placeholder="Auteur"
-                borderColor="gray.300"
-                border="2px"
-                onChange={handleChange}
-            />
-            <Select
-                bg="tomato"
-                borderColor="tomato"
-                color="white"
-                placeholder="Theme"
-            >
-                {themeList.map((theme) => (
-                    <option color="black" key={theme.id} value={theme.id}>
-                        {theme.name}
-                    </option>
-                ))}
-            </Select>
-            {/* <Input
-                color="black"
-                boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
-                backgroundColor="gray.100"
-                width="100%"
-                placeholder="Theme"
-                value={postFormData?.theme_id}
-                type="text"
-                name="theme_id"
-                borderColor="gray.300"
-                border="2px"
-                onChange={handleChange}
-            /> */}
-            <Input
-                color="black"
-                boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
-                backgroundColor="gray.100"
-                width="100%"
-                placeholder="Nom du Dessin ..."
-                value={postFormData?.drawing_name}
-                type="text"
-                name="drawing_name"
-                borderColor="gray.300"
-                border="2px"
-                onChange={handleChange}
-            />
-            <Text>Upload {progress ? Math.floor(progress) : "0"}% </Text>
+            <InputGroup>
+                <InputLeftAddon
+                    backgroundColor="gray.200"
+                    color="black"
+                    children="Auteur"
+                />
+                <Input
+                    color="black"
+                    boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
+                    backgroundColor="gray.300"
+                    width="100%"
+                    type="text"
+                    value={postFormData?.author_id}
+                    name="author_id"
+                    placeholder="Auteur"
+                    borderColor="gray.300"
+                    border="2px"
+                    onChange={handleChange}
+                />
+            </InputGroup>
+            <InputGroup>
+                <InputLeftAddon
+                    backgroundColor="gray.300"
+                    color="black"
+                    children="Theme"
+                />
+                <Select
+                    bg="white"
+                    color="gray.700"
+                    placeholder="Theme"
+                    name="theme_id"
+                    value={postFormData?.theme_id}
+                    onChange={handleSelect}
+                >
+                    {themeList.map((theme) => (
+                        <option color="black" key={theme.id} value={theme.id}>
+                            {theme.name}
+                        </option>
+                    ))}
+                </Select>
+            </InputGroup>
+            <InputGroup>
+                <InputLeftAddon
+                    backgroundColor="gray.300"
+                    color="black"
+                    children="Dessin"
+                />
+                <Input
+                    color="black"
+                    boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
+                    backgroundColor="gray.100"
+                    width="100%"
+                    placeholder="Nom du Dessin ..."
+                    value={postFormData?.drawing_name}
+                    type="text"
+                    name="drawing_name"
+                    borderColor="gray.300"
+                    border="2px"
+                    onChange={handleChange}
+                />
+            </InputGroup>
+            <Text width="100%" textAlign="left">
+                Upload {progress ? Math.floor(progress) : "0"}%{" "}
+            </Text>
             <Box
                 display="flex"
                 justifyContent="start"
@@ -220,18 +261,6 @@ export default function UploadImageForm(): ReactElement {
                 <Button colorScheme="purple" type="button" onClick={fileUpload}>
                     ENVOYER
                 </Button>
-            </Box>
-            <Box position="relative" width={200} height={200}>
-                {imageResponse || image ? (
-                    <Image
-                        layout="responsive"
-                        width={200}
-                        height={200}
-                        src={URL.createObjectURL(image)}
-                    />
-                ) : (
-                    <></>
-                )}
             </Box>
         </FormControl>
     );

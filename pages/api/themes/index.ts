@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import prisma from "prisma/client";
 import { Theme } from ".prisma/client";
-import prisma from "../../prisma/client";
 
 type ApiError = {
     type: string;
