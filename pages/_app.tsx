@@ -31,7 +31,7 @@ const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const [isDesktop, setIsDesktop] = useState<boolean | null>(false);
+    const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
     const { width } = useWindowSize();
     const router = useRouter();
 
