@@ -4,7 +4,7 @@ export type TDrawing = {
     id: string;
     name: string;
     url: string;
-    theme: TTheme;
+    theme: string;
 };
 
 export type TTheme = {

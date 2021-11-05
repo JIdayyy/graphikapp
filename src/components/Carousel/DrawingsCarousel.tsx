@@ -1,5 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { TTheme } from "../../..";
 import fakeDrawings from "../../FakeDatas/fakeDrawings";
 import DrawingCardDesktop from "../Cards/DrawingCardDesktop";
 
