@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 import React, { ReactElement } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,6 +10,7 @@ import { TDrawing } from "../../..";
 interface Props {
     isHover: boolean;
     drawing: TDrawing;
+    hoverRef?: React.RefObject<HTMLDivElement>;
 }
 
 const MotionBox = motion(Box);
