@@ -2,11 +2,7 @@
     "schemaVersion": 2,
     "dockerfileLines": [
         "FROM node:14.17.6-alpine",
-        "RUN mkdir -p /usr/src/app",
-        "WORKDIR /usr/src/app",
-        "COPY ./package.json /usr/src/app/",
-        "RUN npm install && npm cache clean --force",
-        "COPY ./ /usr/src/app",
+        "RUN npm install && npm cache clean --force && npm run build && npm start",
         "ENV NODE_ENV production",
         "ENV PORT 80",
         "EXPOSE 80",
