@@ -1,10 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "prisma/client";
-import { Theme } from ".prisma/client";
 
 type ApiError = {
     type: string;
     message: string;
+};
+type Theme = {
+    id: string;
+    name: string;
 };
 
 const ThemeHandler = async (
