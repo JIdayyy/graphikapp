@@ -1,6 +1,11 @@
 const fakeDrawings = [
     { id: "1", name: "Drawing 1", theme: "Bateau", url: "/images/picture.jpg" },
-    { id: "2", name: "Drawing 2", theme: "Action", url: "/images/picture.jpg" },
+    {
+        id: "2",
+        name: "Drawing 2",
+        theme: "Action",
+        url: "/images/picture2.png",
+    },
     { id: "3", name: "Drawing 3", theme: "Pêche", url: "/images/picture.jpg" },
     {
         id: "4",
@@ -9,20 +14,25 @@ const fakeDrawings = [
         url: "/images/picture.jpg",
     },
     { id: "5", name: "Drawing 5", theme: "Bateau", url: "/images/picture.jpg" },
-    { id: "6", name: "Drawing 6", theme: "Action", url: "/images/picture.jpg" },
+    {
+        id: "6",
+        name: "Drawing 6",
+        theme: "Action",
+        url: "/images/picture2.png",
+    },
     { id: "7", name: "Drawing 7", theme: "Pêche", url: "/images/picture.jpg" },
     {
         id: "8",
         name: "Drawing 8",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     { id: "9", name: "Drawing 9", theme: "Bateau", url: "/images/picture.jpg" },
     {
         id: "10",
         name: "Drawing 10",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "11",
@@ -34,7 +44,7 @@ const fakeDrawings = [
         id: "12",
         name: "Drawing 12",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "13",
@@ -46,7 +56,7 @@ const fakeDrawings = [
         id: "14",
         name: "Drawing 14",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "15",
@@ -58,7 +68,7 @@ const fakeDrawings = [
         id: "16",
         name: "Drawing 16",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "17",
@@ -70,7 +80,7 @@ const fakeDrawings = [
         id: "18",
         name: "Drawing 18",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "19",
@@ -82,7 +92,7 @@ const fakeDrawings = [
         id: "20",
         name: "Drawing 20",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "21",
@@ -94,7 +104,7 @@ const fakeDrawings = [
         id: "22",
         name: "Drawing 22",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "23",
@@ -106,7 +116,7 @@ const fakeDrawings = [
         id: "24",
         name: "Drawing 24",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "25",
@@ -118,7 +128,7 @@ const fakeDrawings = [
         id: "26",
         name: "Drawing 26",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "27",
@@ -130,7 +140,7 @@ const fakeDrawings = [
         id: "28",
         name: "Drawing 28",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "29",
@@ -142,7 +152,7 @@ const fakeDrawings = [
         id: "30",
         name: "Drawing 30",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "31",
@@ -154,7 +164,7 @@ const fakeDrawings = [
         id: "32",
         name: "Drawing 32",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "33",
@@ -166,7 +176,7 @@ const fakeDrawings = [
         id: "34",
         name: "Drawing 34",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "35",
@@ -178,7 +188,7 @@ const fakeDrawings = [
         id: "36",
         name: "Drawing 36",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "37",
@@ -190,7 +200,7 @@ const fakeDrawings = [
         id: "38",
         name: "Drawing 38",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "39",
@@ -202,37 +212,37 @@ const fakeDrawings = [
         id: "40",
         name: "Drawing 40",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "41",
         name: "Drawing 41",
         theme: "Bateau",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "42",
         name: "Drawing 42",
         theme: "Action",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "43",
         name: "Drawing 43",
         theme: "Pêche",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "44",
         name: "Drawing 44",
         theme: "Passion",
-        url: "/images/picture.jpg",
+        url: "/images/picture2.png",
     },
     {
         id: "45",
         name: "Drawing 45",
         theme: "Bateau",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "46",
@@ -352,7 +362,7 @@ const fakeDrawings = [
         id: "65",
         name: "Drawing 65",
         theme: "Cartable",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "66",
@@ -364,7 +374,7 @@ const fakeDrawings = [
         id: "67",
         name: "Drawing 67",
         theme: "Emotion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "68",
@@ -382,7 +392,7 @@ const fakeDrawings = [
         id: "70",
         name: "Drawing 70",
         theme: "Emotion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "71",
@@ -400,25 +410,25 @@ const fakeDrawings = [
         id: "73",
         name: "Drawing 73",
         theme: "Emotion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "74",
         name: "Drawing 74",
         theme: "Cartable",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "75",
         name: "Drawing 75",
         theme: "Avion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "76",
         name: "Drawing 76",
         theme: "Emotion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "77",
@@ -442,25 +452,25 @@ const fakeDrawings = [
         id: "80",
         name: "Drawing 80",
         theme: "Cartable",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "81",
         name: "Drawing 81",
         theme: "Avion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "82",
         name: "Drawing 82",
         theme: "Emotion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "83",
         name: "Drawing 83",
         theme: "Cartable",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "84",
@@ -538,25 +548,25 @@ const fakeDrawings = [
         id: "96",
         name: "Drawing 96",
         theme: "Avion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "97",
         name: "Drawing 97",
         theme: "Emotion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "98",
         name: "Drawing 98",
         theme: "Cartable",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
     {
         id: "99",
         name: "Drawing 99",
         theme: "Avion",
-        url: "/images/picture.jpg",
+        url: "/images/picture3.png",
     },
 ];
 export default fakeDrawings;

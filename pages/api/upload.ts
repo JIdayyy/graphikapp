@@ -1,0 +1,91 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/naming-convention */
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from "next";
+import { IncomingForm } from "formidable";
+import cloudinary from "cloudinary";
+import createDrawing from "./lib/createDrawing";
+import { DrawingInput } from "../..";
+
+type Data = {
+    type: string;
+    message: string;
+    url: string;
+};
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
+
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
+
+const signUpload = async () => {
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const params = {
+        timestamp,
+        async: true,
+    };
+    const signature = await cloudinary.v2.utils.api_sign_request(
+        params,
+        process.env.API_SECRET as string,
+    );
+    return { timestamp, signature };
+};
+
+const UploadHandler = async (
+    req: NextApiRequest,
+    res: NextApiResponse<Data | { message: string } | DrawingInput>,
+) => {
+    // const { drawing_name, author_id, theme_id } = req.body;
+
+    try {
+        const { files: incomingFile } = await new Promise((resolve, reject) => {
+            const form = new IncomingForm();
+
+            form.parse(req, (err, fields, files): void => {
+                if (err) return reject(err);
+                return resolve({ files });
+            });
+        });
+
+        if (incomingFile.image.size > 1) {
+            return res.status(413).send({
+                type: "FILE_TOO_BIG",
+                message: "File is too big, limit is 10Mo",
+            });
+        }
+
+        await cloudinary.v2.uploader.upload(
+            incomingFile.image.filepath,
+            signUpload(),
+            async (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res
+                        .status(500)
+                        .send({ message: "Error during upload" });
+                }
+                if (result) {
+                    const newDrawing = await createDrawing({
+                        author_id: "2e39c0b4-ad19-4412-b9a7-d42b226a27e6",
+                        drawing_name: "testtesttesttest",
+                        theme_id: "85ad1403-8819-4301-b593-3368c1847243",
+                        url: result.secure_url,
+                    });
+                    return res.status(200).send(newDrawing);
+                }
+                return res.status(500).send({ message: "Error during upload" });
+            },
+        );
+        return res.status(500).send({ message: "Error during upload" });
+    } catch (error) {
+        return res.status(500).send({ message: "Error during upload" });
+    }
+};
+export default UploadHandler;

@@ -10,18 +10,28 @@ import "react-toastify/dist/ReactToastify.css";
 import "nprogress/nprogress.css";
 import "react-multi-carousel/lib/styles.css";
 import { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "../src/components/Layout/Layout";
 import useWindowSize from "../src/Hooks/useWindowDimension";
 import DesktopLayout from "../src/components/Layout/DesktopLayout";
 import theme from "../styles/theme";
 import checkMobile from "../src/lib/checkMobile";
+import ErrorBoundary from "../src/ErrorBoundary";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: Infinity,
+        },
+    },
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
-    const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
+    const [isDesktop, setIsDesktop] = useState<boolean | null>(false);
     const { width } = useWindowSize();
     const router = useRouter();
 
@@ -30,20 +40,26 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, [width]);
 
     return (
-        <ChakraProvider theme={theme}>
-            <CSSReset />
-            {!isDesktop && isDesktop !== null && (
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            )}
-            {isDesktop && isDesktop !== null && (
-                <DesktopLayout>
-                    <Component {...pageProps} />
-                </DesktopLayout>
-            )}
-            <ToastContainer autoClose={3000} />
-        </ChakraProvider>
+        <QueryClientProvider client={queryClient}>
+            <ChakraProvider theme={theme}>
+                <CSSReset />
+                {!isDesktop && isDesktop !== null && (
+                    <Layout>
+                        <ErrorBoundary>
+                            <Component {...pageProps} />
+                        </ErrorBoundary>
+                    </Layout>
+                )}
+                {isDesktop && isDesktop !== null && (
+                    <DesktopLayout>
+                        <ErrorBoundary>
+                            <Component {...pageProps} />
+                        </ErrorBoundary>
+                    </DesktopLayout>
+                )}
+                <ToastContainer autoClose={3000} />
+            </ChakraProvider>
+        </QueryClientProvider>
     );
 }
 
