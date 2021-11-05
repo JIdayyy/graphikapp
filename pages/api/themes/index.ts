@@ -5,7 +5,6 @@ type ApiError = {
     type: string;
     message: string;
 };
-
 type Theme = {
     id: string;
     name: string;

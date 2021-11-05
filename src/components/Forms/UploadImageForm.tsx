@@ -9,25 +9,24 @@ import {
     Text,
     FormControl,
     InputLeftAddon,
-    Select,
     InputGroup,
+    InputRightElement,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { UAParser } from "ua-parser-js";
-import { TTheme } from "../../..";
+import { BsCheckLg } from "react-icons/bs";
+import ControlledSelect from "../Inputs/ControlledSelect";
+import { BodyPicturePost, TTheme } from "../../..";
 import axiosInstance from "../../fetcher/axiosInstance";
 
 const parser = new UAParser();
 
-type BodyPost = {
-    author_id?: string;
-    theme_id?: string;
-    drawing_name?: string;
-};
-
 export default function UploadImageForm(): ReactElement {
     const [image, setImage] = useState<File | undefined>();
-    const [postFormData, setPostFormData] = useState<BodyPost | null>();
+    const [postFormData, setPostFormData] = useState<BodyPicturePost>({
+        author_id: "",
+        drawing_name: "",
+    });
     const [imageResponse, setImageResponse] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [progress, setProgress] = useState<number>(0);
@@ -180,6 +179,12 @@ export default function UploadImageForm(): ReactElement {
                     capture="environment"
                 />
             )}
+
+            <ControlledSelect
+                themeList={themeList}
+                postFormData={postFormData}
+                handleSelect={handleSelect}
+            />
             <InputGroup>
                 <InputLeftAddon
                     backgroundColor="gray.200"
@@ -188,6 +193,7 @@ export default function UploadImageForm(): ReactElement {
                 />
                 <Input
                     color="black"
+                    isRequired
                     boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
                     backgroundColor="gray.300"
                     width="100%"
@@ -195,31 +201,11 @@ export default function UploadImageForm(): ReactElement {
                     value={postFormData?.author_id}
                     name="author_id"
                     placeholder="Auteur"
-                    borderColor="gray.300"
+                    _placeholder={{ color: "gray.300" }}
                     border="2px"
                     onChange={handleChange}
                 />
-            </InputGroup>
-            <InputGroup>
-                <InputLeftAddon
-                    backgroundColor="gray.300"
-                    color="black"
-                    children="Theme"
-                />
-                <Select
-                    bg="white"
-                    color="gray.700"
-                    placeholder="Theme"
-                    name="theme_id"
-                    value={postFormData?.theme_id}
-                    onChange={handleSelect}
-                >
-                    {themeList.map((theme) => (
-                        <option color="black" key={theme.id} value={theme.id}>
-                            {theme.name}
-                        </option>
-                    ))}
-                </Select>
+                <InputRightElement children={<BsCheckLg color="green.500" />} />
             </InputGroup>
             <InputGroup>
                 <InputLeftAddon
@@ -228,15 +214,16 @@ export default function UploadImageForm(): ReactElement {
                     children="Dessin"
                 />
                 <Input
+                    isRequired
                     color="black"
                     boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
-                    backgroundColor="gray.100"
+                    backgroundColor="gray.300"
                     width="100%"
                     placeholder="Nom du Dessin ..."
                     value={postFormData?.drawing_name}
+                    _placeholder={{ color: "gray.300" }}
                     type="text"
                     name="drawing_name"
-                    borderColor="gray.300"
                     border="2px"
                     onChange={handleChange}
                 />

@@ -13,4 +13,10 @@ export type TTheme = {
     drawings: TDrawing[];
 };
 
+export type BodyPicturePost = {
+    author_id?: string;
+    theme_id?: string;
+    drawing_name?: string;
+};
+
 type DrawingInput = Omit<Drawing.Drawing, "id">;
