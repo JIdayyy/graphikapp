@@ -3,20 +3,16 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Box, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import { TDrawing } from "../../..";
 
 interface Props {
     isHover: boolean;
-    drawing: Drawing;
-    hoverRef: React.RefObject<HTMLDivElement>;
+    drawing: TDrawing;
 }
 
 const MotionBox = motion(Box);
 
-const DrawingCardHover = ({
-    isHover,
-    drawing,
-    hoverRef,
-}: Props): ReactElement => (
+const DrawingCardHover = ({ isHover, drawing }: Props): ReactElement => (
     <AnimatePresence>
         {isHover && (
             <MotionBox
