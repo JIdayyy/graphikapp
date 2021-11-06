@@ -30,14 +30,14 @@ export default function ControlledSelect({
                 backgroundColor="gray.300"
                 name="theme_id"
                 borderLeftRadius={0}
-                value={postFormData?.theme_id}
                 onChange={handleSelect}
             >
-                {themeList.map((theme) => (
-                    <option color="black" key={theme.id} value={theme.id}>
-                        {theme.name}
-                    </option>
-                ))}
+                {themeList &&
+                    themeList.map((theme) => (
+                        <option color="black" key={theme.id} value={theme.id}>
+                            {theme.name}
+                        </option>
+                    ))}
             </Select>
         </InputGroup>
     );

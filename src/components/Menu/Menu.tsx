@@ -7,6 +7,7 @@ import MenuList from "./MenuList";
 interface IProps {
     isMenu: boolean;
 }
+
 const MotionBox = motion(Box);
 
 const Menu = forwardRef(
@@ -22,7 +23,7 @@ const Menu = forwardRef(
                     initial={{ x: -999 }}
                     animate={{ x: 0 }}
                     exit={{ x: -999 }}
-                    transition={{ default: { duration: 0.5 } }}
+                    transition={{ default: { duration: 0.3 } }}
                     zIndex={999}
                 >
                     <MotionBox
@@ -50,7 +51,7 @@ const Menu = forwardRef(
                         backgroundColor="black"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 0.7 }}
-                        transition={{ default: { duration: 0.2, delay: 0.4 } }}
+                        transition={{ default: { duration: 0.2, delay: 0.2 } }}
                         exit={{ opacity: 0, transition: { duration: 0 } }}
                         height="100%"
                         width="50%"

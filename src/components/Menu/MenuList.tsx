@@ -34,7 +34,7 @@ const MenuList = (): ReactElement => (
         justifyContent="start"
     >
         {menuLinks.map((link) => (
-            <MenuItem link={link} icon={link.icon} />
+            <MenuItem link={link} />
         ))}
     </Box>
 );

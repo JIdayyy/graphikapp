@@ -9,9 +9,9 @@ export default function useDiceRotate(): () => void {
     ): void => {
         const xRand = getRandom(max, min);
         const yRand = getRandom(max, min);
-        const test = cube;
-        if (!test) return;
-        test.style.transform = `rotateX(${xRand}deg) rotateY(${yRand}deg)`;
+        const CubeDOM = cube;
+        if (!CubeDOM) return;
+        CubeDOM.style.transform = `rotateX(${xRand}deg) rotateY(${yRand}deg)`;
     };
     const handleClick = () => {
         const cube = document.getElementById("cube");

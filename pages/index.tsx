@@ -8,6 +8,7 @@ import fakeThemes from "../src/FakeDatas/fakeThemes";
 
 const Home: NextPage = () => {
     const [isList, setIsList] = useState(false);
+
     return (
         <Box
             sx={scrollBar}

@@ -19,6 +19,7 @@ export default function UploadImageForm(): ReactElement {
     const [postFormData, setPostFormData] = useState<BodyPicturePost>({
         author_id: "",
         drawing_name: "",
+        theme_id: "",
     });
     const [imageResponse, setImageResponse] = useState<string>("");
     const [UXmessage, setUXMessage] = useState<string>("");
@@ -26,8 +27,6 @@ export default function UploadImageForm(): ReactElement {
     const [themeList, setThemeList] = useState<TTheme[]>([]);
 
     const device = parser.getDevice();
-
-    console.log(themeList);
 
     useQuery(
         "getThemes",
@@ -39,6 +38,7 @@ export default function UploadImageForm(): ReactElement {
         },
     );
 
+    console.log(themeList);
     const { mutateAsync } = useMutation(
         (newImage: FormData) =>
             axiosInstance
@@ -99,6 +99,7 @@ export default function UploadImageForm(): ReactElement {
     };
 
     const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+        console.log(e.target.value);
         setPostFormData({
             ...postFormData,
             [e.target.name]: e.target.value,
@@ -106,6 +107,7 @@ export default function UploadImageForm(): ReactElement {
     };
 
     const fileUpload = async () => {
+        console.log(postFormData);
         setProgress(0);
         if (image && postFormData) {
             console.log(postFormData.author_id, postFormData.theme_id);
