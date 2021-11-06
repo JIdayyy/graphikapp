@@ -2,22 +2,15 @@
 /* eslint-disable no-console */
 import React, { ChangeEvent, ReactElement, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import {
-    Input,
-    Box,
-    Button,
-    Text,
-    FormControl,
-    InputLeftAddon,
-    InputGroup,
-    InputRightElement,
-} from "@chakra-ui/react";
-import Image from "next/image";
+import { Input, Box, Button, Text } from "@chakra-ui/react";
 import { UAParser } from "ua-parser-js";
-import { BsCheckLg } from "react-icons/bs";
 import ControlledSelect from "../Inputs/ControlledSelect";
 import { BodyPicturePost, TTheme } from "../../..";
 import axiosInstance from "../../fetcher/axiosInstance";
+import ControlledInput from "../Inputs/ControlledInput";
+import ImagePreview from "../Image/ImagePreview";
+import ProgressBar from "../Assets/ProgressBar";
+import ControlledFormWrapper from "./ControlledFormWrapper";
 
 const parser = new UAParser();
 
@@ -28,7 +21,7 @@ export default function UploadImageForm(): ReactElement {
         drawing_name: "",
     });
     const [imageResponse, setImageResponse] = useState<string>("");
-    const [error, setError] = useState<string>("");
+    const [UXmessage, setUXMessage] = useState<string>("");
     const [progress, setProgress] = useState<number>(0);
     const [themeList, setThemeList] = useState<TTheme[]>([]);
 
@@ -36,11 +29,7 @@ export default function UploadImageForm(): ReactElement {
 
     console.log(themeList);
 
-    const {
-        data: ThemesRes,
-        isLoading,
-        error: queryError,
-    } = useQuery(
+    useQuery(
         "getThemes",
         () => axiosInstance.get("/themes").then((r) => r.data),
         {
@@ -63,7 +52,7 @@ export default function UploadImageForm(): ReactElement {
                 })
                 .then((r) => r.data)
                 .catch((err) => {
-                    setError(err.response.data.message);
+                    setUXMessage(err.response.data.message);
                 }),
         {
             onSuccess: (data) => {
@@ -71,7 +60,13 @@ export default function UploadImageForm(): ReactElement {
                     setImageResponse(data.url);
                 }
                 setProgress(0);
-                setError("DESSIN ENVOYE AVEC SUCCES !");
+                if (data.drawing_url !== undefined) {
+                    setPostFormData({
+                        author_id: "",
+                        drawing_name: "",
+                        theme_id: "",
+                    });
+                }
             },
             onError: (err) => {
                 console.log("ERROR UPLOAD", err);
@@ -130,45 +125,10 @@ export default function UploadImageForm(): ReactElement {
     };
 
     return (
-        <FormControl
-            p={4}
-            height="100%"
-            width="100%"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            flexDirection="column"
-            color="white"
-            action=""
-        >
-            <Box
-                position="relative"
-                display="flex"
-                justifyContent="center"
-                width={200}
-                height={200}
-            >
-                {imageResponse || image ? (
-                    <Image layout="fill" src={URL.createObjectURL(image)} />
-                ) : (
-                    <Image
-                        src="/icons/drawing_upload.png"
-                        width={100}
-                        height={100}
-                        layout="fixed"
-                    />
-                )}
-            </Box>
-            <Input
-                boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.8)"
-                width="100%"
-                accept="image/*"
-                multiple={false}
-                type="file"
-                name="image"
-                onChange={handleImage}
-            />
-            {device.type === "mobile" && (
+        <ControlledFormWrapper>
+            <ImagePreview image={image} imageResponse={imageResponse} />
+
+            {device.type === "mobile" ? (
                 <Input
                     width="100%"
                     onChange={handleImage}
@@ -178,59 +138,39 @@ export default function UploadImageForm(): ReactElement {
                     name="image"
                     capture="environment"
                 />
+            ) : (
+                <Input
+                    boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.8)"
+                    width="100%"
+                    accept="image/*"
+                    multiple={false}
+                    type="file"
+                    name="image"
+                    onChange={handleImage}
+                />
             )}
-
             <ControlledSelect
                 themeList={themeList}
                 postFormData={postFormData}
+                label="Theme"
                 handleSelect={handleSelect}
             />
-            <InputGroup>
-                <InputLeftAddon
-                    backgroundColor="gray.200"
-                    color="black"
-                    children="Auteur"
-                />
-                <Input
-                    color="black"
-                    isRequired
-                    boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
-                    backgroundColor="gray.300"
-                    width="100%"
-                    type="text"
-                    value={postFormData?.author_id}
-                    name="author_id"
-                    placeholder="Auteur"
-                    _placeholder={{ color: "gray.300" }}
-                    border="2px"
-                    onChange={handleChange}
-                />
-                <InputRightElement children={<BsCheckLg color="green.500" />} />
-            </InputGroup>
-            <InputGroup>
-                <InputLeftAddon
-                    backgroundColor="gray.300"
-                    color="black"
-                    children="Dessin"
-                />
-                <Input
-                    isRequired
-                    color="black"
-                    boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
-                    backgroundColor="gray.300"
-                    width="100%"
-                    placeholder="Nom du Dessin ..."
-                    value={postFormData?.drawing_name}
-                    _placeholder={{ color: "gray.300" }}
-                    type="text"
-                    name="drawing_name"
-                    border="2px"
-                    onChange={handleChange}
-                />
-            </InputGroup>
-            <Text width="100%" textAlign="left">
-                Upload {progress ? Math.floor(progress) : "0"}%{" "}
-            </Text>
+            <ControlledInput
+                label="Auteur"
+                value={postFormData.author_id}
+                handleChange={handleChange}
+                name="author_id"
+                placeholder="Author"
+            />
+            <ControlledInput
+                label="Dessin"
+                handleChange={handleChange}
+                name="drawing_name"
+                placeholder="Nom du dessin ..."
+                value={postFormData.drawing_name}
+            />
+
+            <ProgressBar progress={progress} />
             <Box
                 display="flex"
                 justifyContent="start"
@@ -246,7 +186,7 @@ export default function UploadImageForm(): ReactElement {
                     style={{ width: `${progress}%` }}
                 />
             </Box>
-            {error && <Text color="text.error">{error}</Text>}
+            {UXmessage ? <Text color="text.error">{UXmessage}</Text> : <></>}
             <Box display="flex" width="100%" justifyContent="space-around">
                 <Button colorScheme="red" type="button" onClick={removeImage}>
                     ANULER
@@ -255,6 +195,6 @@ export default function UploadImageForm(): ReactElement {
                     ENVOYER
                 </Button>
             </Box>
-        </FormControl>
+        </ControlledFormWrapper>
     );
 }

@@ -9,7 +9,6 @@ export default function Footer(): ReactElement {
             p={4}
             shadow="dark-lg"
             zIndex={999}
-            position="fixed"
             width="100%"
             bottom="0"
             backgroundColor="purple.default"

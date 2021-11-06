@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { forwardRef, Box } from "@chakra-ui/react";
+import Image from "next/image";
 import MenuList from "./MenuList";
 
 interface IProps {
@@ -10,29 +11,53 @@ const MotionBox = motion(Box);
 
 const Menu = forwardRef(
     ({ isMenu }: IProps, ref): ReactElement => (
-        <div ref={ref}>
-            <AnimatePresence>
-                {isMenu && (
+        <AnimatePresence>
+            {isMenu && (
+                <MotionBox
+                    position="fixed"
+                    display="flex"
+                    flexDirection="row"
+                    width="100vw"
+                    height="100vh"
+                    initial={{ x: -999 }}
+                    animate={{ x: 0 }}
+                    exit={{ x: -999 }}
+                    transition={{ default: { duration: 0.5 } }}
+                    zIndex={999}
+                >
                     <MotionBox
-                        shadow="dark-lg"
-                        position="fixed"
+                        ref={ref}
+                        display="flex"
+                        flexDirection="column"
+                        backgroundColor="white"
+                        height="100%"
+                        width="50%"
+                    >
+                        <Box
+                            position="relative"
+                            backgroundColor="purple.default"
+                            height="30%"
+                            width="100%"
+                        >
+                            <Image src="/images/logo.png" layout="fill" />
+                        </Box>
+                        <MenuList />
+                    </MotionBox>
+                    <MotionBox
                         display="flex"
                         flexDirection="column"
                         padding="20px"
-                        zIndex={999}
-                        backgroundColor="white"
+                        backgroundColor="black"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.7 }}
+                        transition={{ default: { duration: 0.2, delay: 0.4 } }}
+                        exit={{ opacity: 0, transition: { duration: 0 } }}
                         height="100%"
-                        boxSize="100%"
-                        initial={{ x: -999 }}
-                        animate={{ x: 0, width: "70%" }}
-                        transition={{ default: { duration: 0.5 } }}
-                        exit={{ width: 0, x: -999 }}
-                    >
-                        <MenuList />
-                    </MotionBox>
-                )}
-            </AnimatePresence>
-        </div>
+                        width="50%"
+                    />
+                </MotionBox>
+            )}
+        </AnimatePresence>
     ),
 );
 export default Menu;
