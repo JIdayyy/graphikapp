@@ -26,7 +26,7 @@ model Theme {
   name     String    @unique
   drawings Drawing[]
   isEnable Boolean   @default(true)
-  level    Level
+  level    Level     @default(MEDIUM)
 }
 
 model Drawing {
