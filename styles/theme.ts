@@ -7,7 +7,7 @@ const theme = extendTheme({
     },
     colors: {
         purple: {
-            default: "#8C65CE",
+            default: "#F3444F",
         },
         background: {
             mobile: "#000000",
