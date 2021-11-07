@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable no-console */
 import React, { ChangeEvent, useContext, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Box, Button } from "@chakra-ui/react";
 import { UserContext } from "@Context/UserContext";
 import ControlledInput from "@components/Inputs/ControlledInput";
@@ -23,6 +23,7 @@ export default function UploadImageForm(): JSX.Element {
     const [UXmessage, setUXMessage] = useState<string>("");
     const [progress, setProgress] = useState<number>(0);
     const [themeList, setThemeList] = useState<TTheme[]>([]);
+
     const [postFormData, setPostFormData] = useState<BodyPicturePost>({
         author_id: "",
         drawing_name: "",

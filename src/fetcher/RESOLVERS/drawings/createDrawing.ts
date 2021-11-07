@@ -5,12 +5,13 @@ import { DrawingInput } from "../../../..";
 import prisma from "../../../../prisma/client";
 
 const createDrawing = async (drawing: DrawingInput, callback: () => void) => {
-    const { drawing_name, author_id, theme_id, url } = drawing;
+    const { drawing_name, author_id, theme_id, url, placeholder } = drawing;
 
     try {
         const newDrawing = await prisma.drawing.create({
             data: {
                 drawing_name,
+                placeholder,
                 theme: {
                     connect: {
                         id: theme_id,

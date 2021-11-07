@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default function DrawingCard({ drawing }: Props): ReactElement {
+    console.log(drawing);
     return (
         <Link passHref href={`/drawings/${drawing.id}`}>
             <Box
@@ -21,7 +22,13 @@ export default function DrawingCard({ drawing }: Props): ReactElement {
                 borderRadius={2}
             >
                 <Box height="60%" width="100%" position="relative">
-                    <Image src={drawing.url} layout="fill" />
+                    <Image
+                        placeholder="blur"
+                        priority
+                        src={drawing.url}
+                        blurDataURL={drawing.placeholder}
+                        layout="fill"
+                    />
                 </Box>
                 <Box
                     p={2}

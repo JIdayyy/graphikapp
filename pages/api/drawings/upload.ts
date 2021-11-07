@@ -36,7 +36,9 @@ const signUpload = async () => {
 
 const UploadHandler = async (
     req: NextApiRequest,
-    res: NextApiResponse<ApiError | { drawing_url: string } | DrawingInput>,
+    res: NextApiResponse<
+        ApiError | { drawing_url: string; placeholder: string } | DrawingInput
+    >,
 ) => {
     try {
         const { files: incomingFile, fields: formFields } = await new Promise(
@@ -60,23 +62,46 @@ const UploadHandler = async (
         const cloudinaryRes = await cloudinary.v2.uploader.upload(
             incomingFile.image.filepath,
             signUpload(),
-            async (error, result) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(500).send({
-                        message: "Error during upload",
-                        type: "CLOUDINARY_ERROR",
-                    });
+            async (uploaderror, result) => {
+                if (uploaderror) {
+                    console.log(uploaderror);
+                    throw new Error();
                 }
                 if (result) {
                     console.log("UPLOADED SUCCESSFULLY");
                 }
-                return error;
+                return uploaderror;
+            },
+        );
+        const blured = await cloudinary.v2.uploader.upload(
+            incomingFile.image.filepath,
+            {
+                secure: true,
+                effect: ["pixelate:50"],
+                transformation: [
+                    {
+                        width: 400,
+                        height: 400,
+                        crop: "fill",
+                        gravity: "face",
+                    },
+                ],
+            },
+            async (uploaderror, result) => {
+                if (uploaderror) {
+                    console.log(uploaderror);
+                    throw new Error();
+                }
+                if (result) {
+                    console.log("UPLOADED SUCCESSFULLY");
+                }
+                return uploaderror;
             },
         );
         if (!cloudinaryRes.secure_url) {
             throw new Error("Error during upload");
         }
+
         await createDrawing(
             {
                 author_id,
@@ -84,6 +109,7 @@ const UploadHandler = async (
                 theme_id,
                 url: cloudinaryRes.secure_url,
                 isEnable: true,
+                placeholder: blured.secure_url,
             },
             async () => {
                 const deleted = await cloudinary.v2.uploader.destroy(
@@ -93,12 +119,15 @@ const UploadHandler = async (
             },
         );
 
-        return res.status(201).send({ drawing_url: cloudinaryRes.secure_url });
+        return res.status(201).send({
+            drawing_url: cloudinaryRes.secure_url,
+            placeholder: blured.secure_url,
+        });
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return res.status(500).send({
-                    message: "CE DESSIN EXISTE DEJA !!",
+                    message: "CE NOM DE DESSIN EXISTE DEJA !",
                     type: "UNIQUE_CONSTRAINT",
                     error,
                 });

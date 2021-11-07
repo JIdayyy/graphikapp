@@ -39,6 +39,7 @@ model Drawing {
   author_id    String
   comments     Comment[]
   isEnable     Boolean   @default(true)
+  placeholder  String    @default("")
 }
 
 model Comment {
