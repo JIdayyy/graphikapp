@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "npm run build && next start",
+        "start": "npx prisma generate && npm run build && next start",
         "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
         "deploy": "next build && next start"
