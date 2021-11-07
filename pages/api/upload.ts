@@ -78,6 +78,7 @@ const UploadHandler = async (
                         drawing_name,
                         theme_id,
                         url: result.secure_url,
+                        isEnable: true,
                     });
 
                     return console.log(
