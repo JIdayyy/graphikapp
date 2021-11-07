@@ -17,13 +17,15 @@ model User {
   password String
   drawings Drawing[]
   comments Comment[]
-  roles   Role      @default(USER)
+  roles    Role      @default(USER)
+  isEnable Boolean   @default(true)
 }
 
 model Theme {
   id       String    @id @default(uuid())
   name     String    @unique
   drawings Drawing[]
+  isEnable Boolean   @default(true)
 }
 
 model Drawing {
@@ -35,7 +37,7 @@ model Drawing {
   author       User      @relation(fields: [author_id], references: [id])
   author_id    String
   comments     Comment[]
-  isEnable     Boolean
+  isEnable Boolean   @default(true)
 }
 
 model Comment {
@@ -45,6 +47,7 @@ model Comment {
   drawing    Drawing @relation(fields: [drawing_id], references: [id])
   author_id  String
   author     User    @relation(fields: [author_id], references: [id])
+  isEnable Boolean   @default(true)
 }
 
 enum Role {
