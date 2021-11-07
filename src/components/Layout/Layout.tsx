@@ -13,11 +13,13 @@ interface IProps {
 
 export default function Layout({ children }: IProps): ReactElement {
     const [isMenu, setIsMenu] = useState(false);
+
     const ref = React.useRef<HTMLDivElement>(null);
 
     const handleClickOutside = (): void => {
         setIsMenu(false);
     };
+
     useOnClickOutside(ref, handleClickOutside);
 
     return (

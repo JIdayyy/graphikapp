@@ -11,6 +11,7 @@ import "nprogress/nprogress.css";
 import "react-multi-carousel/lib/styles.css";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { UserContextProvider } from "@Context/UserContext";
 import Layout from "../src/components/Layout/Layout";
 import DesktopLayout from "../src/components/Layout/DesktopLayout";
 import theme from "../styles/theme";
@@ -38,25 +39,33 @@ function MyApp({ Component, pageProps }: AppProps) {
         checkMobile(setIsDesktop, router);
     }, []);
 
+    if (isDesktop === null) return <div>Loading</div>;
+
     return (
         <QueryClientProvider client={queryClient}>
             <ChakraProvider theme={theme}>
                 <CSSReset />
-                {!isDesktop && isDesktop !== null && (
-                    <Layout>
-                        <ErrorBoundary>
-                            <Component {...pageProps} />
-                        </ErrorBoundary>
-                    </Layout>
-                )}
-                {isDesktop && isDesktop !== null && (
-                    <DesktopLayout>
-                        <ErrorBoundary>
-                            <Component {...pageProps} />
-                        </ErrorBoundary>
-                    </DesktopLayout>
-                )}
-                <ToastContainer autoClose={3000} />
+                <UserContextProvider>
+                    {!isDesktop && isDesktop !== null ? (
+                        <Layout>
+                            <ErrorBoundary>
+                                <Component {...pageProps} />
+                            </ErrorBoundary>
+                        </Layout>
+                    ) : (
+                        <></>
+                    )}
+                    {isDesktop && isDesktop !== null ? (
+                        <DesktopLayout>
+                            <ErrorBoundary>
+                                <Component {...pageProps} />
+                            </ErrorBoundary>
+                        </DesktopLayout>
+                    ) : (
+                        <></>
+                    )}
+                </UserContextProvider>
+                <ToastContainer autoClose={1000} />
             </ChakraProvider>
         </QueryClientProvider>
     );

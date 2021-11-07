@@ -1,44 +1,48 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable no-console */
-import React, { ChangeEvent, ReactElement, useState } from "react";
+import React, { ChangeEvent, ReactElement, useContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { Input, Box, Button, Text } from "@chakra-ui/react";
-import { UAParser } from "ua-parser-js";
-import ControlledSelect from "../Inputs/ControlledSelect";
+import { Box, Button } from "@chakra-ui/react";
+import { UserContext } from "@Context/UserContext";
+import ControlledInput from "@components/Inputs/ControlledInput";
+import ControlledFileInput from "@components/Inputs/ControlledFileInput";
+import UXMessageDisplay from "@components/Assets/UXMessageDisplay";
+import ProgressPercentage from "@components/Assets/ProgressPercentage";
+import ProgressBar from "@components/Assets/ProgressBar";
+import ControlledSelect from "@components/Inputs/ControlledSelect";
 import { BodyPicturePost, TTheme } from "../../..";
 import axiosInstance from "../../fetcher/axiosInstance";
-import ControlledInput from "../Inputs/ControlledInput";
 import ImagePreview from "../Image/ImagePreview";
-import ProgressBar from "../Assets/ProgressBar";
 import ControlledFormWrapper from "./ControlledFormWrapper";
 
-const parser = new UAParser();
-
 export default function UploadImageForm(): ReactElement {
+    const { state } = useContext(UserContext);
     const [image, setImage] = useState<File | undefined>();
+    const [imageResponse, setImageResponse] = useState<string>("");
+    const [UXmessage, setUXMessage] = useState<string>("");
+    const [progress, setProgress] = useState<number>(0);
+    const [themeList, setThemeList] = useState<TTheme[]>([]);
     const [postFormData, setPostFormData] = useState<BodyPicturePost>({
         author_id: "",
         drawing_name: "",
         theme_id: "",
     });
-    const [imageResponse, setImageResponse] = useState<string>("");
-    const [UXmessage, setUXMessage] = useState<string>("");
-    const [progress, setProgress] = useState<number>(0);
-    const [themeList, setThemeList] = useState<TTheme[]>([]);
 
-    const device = parser.getDevice();
-
-    useQuery(
+    const { data: ThemeRes, isLoading } = useQuery(
         "getThemes",
         () => axiosInstance.get("/themes").then((r) => r.data),
         {
             onSuccess: (data) => {
                 setThemeList(data);
+                setPostFormData({
+                    author_id: "",
+                    theme_id: data[0].id,
+                    drawing_name: "",
+                });
             },
         },
     );
 
-    console.log(themeList);
     const { mutateAsync } = useMutation(
         (newImage: FormData) =>
             axiosInstance
@@ -59,17 +63,13 @@ export default function UploadImageForm(): ReactElement {
                 if (data !== undefined) {
                     setImageResponse(data.url);
                 }
-                setProgress(0);
-                if (data.drawing_url !== undefined) {
-                    setPostFormData({
-                        author_id: "",
-                        drawing_name: "",
-                        theme_id: "",
-                    });
-                }
+                setPostFormData({
+                    drawing_name: "",
+                    theme_id: "",
+                });
             },
             onError: (err) => {
-                console.log("ERROR UPLOAD", err);
+                console.log("ERROR DURING UPLOAD", err);
             },
             useErrorBoundary: true,
         },
@@ -78,8 +78,7 @@ export default function UploadImageForm(): ReactElement {
     const removeImage = () => {
         setImage(undefined);
         setPostFormData({
-            author_id: "",
-            theme_id: "",
+            theme_id: ThemeRes[0].id,
             drawing_name: "",
         });
     };
@@ -95,7 +94,6 @@ export default function UploadImageForm(): ReactElement {
             ...postFormData,
             [e.target.name]: e.target.value,
         });
-        console.log(postFormData);
     };
 
     const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -107,16 +105,11 @@ export default function UploadImageForm(): ReactElement {
     };
 
     const fileUpload = async () => {
-        console.log(postFormData);
         setProgress(0);
         if (image && postFormData) {
-            console.log(postFormData.author_id, postFormData.theme_id);
             const formData = new FormData();
             formData.append("image", image);
-            formData.append(
-                "author_id",
-                "2e39c0b4-ad19-4412-b9a7-d42b226a27e6" as string,
-            );
+            formData.append("author_id", state.user.id);
             formData.append("theme_id", postFormData.theme_id as string);
             formData.append(
                 "drawing_name",
@@ -130,40 +123,16 @@ export default function UploadImageForm(): ReactElement {
         <ControlledFormWrapper>
             <ImagePreview image={image} imageResponse={imageResponse} />
 
-            {device.type === "mobile" ? (
-                <Input
-                    width="100%"
-                    onChange={handleImage}
-                    accept="image/*"
-                    multiple={false}
-                    type="file"
-                    name="image"
-                    capture="environment"
-                />
-            ) : (
-                <Input
-                    boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.8)"
-                    width="100%"
-                    accept="image/*"
-                    multiple={false}
-                    type="file"
-                    name="image"
-                    onChange={handleImage}
-                />
-            )}
+            <ControlledFileInput handleImage={handleImage} />
+
             <ControlledSelect
+                isLoading={isLoading}
                 themeList={themeList}
                 postFormData={postFormData}
                 label="Theme"
                 handleSelect={handleSelect}
             />
-            <ControlledInput
-                label="Auteur"
-                value={postFormData.author_id}
-                handleChange={handleChange}
-                name="author_id"
-                placeholder="Author"
-            />
+
             <ControlledInput
                 label="Dessin"
                 handleChange={handleChange}
@@ -172,23 +141,12 @@ export default function UploadImageForm(): ReactElement {
                 value={postFormData.drawing_name}
             />
 
+            <ProgressPercentage progress={progress} />
+
             <ProgressBar progress={progress} />
-            <Box
-                display="flex"
-                justifyContent="start"
-                borderColor="gray.300"
-                width="100%"
-                height="10"
-                border="2px"
-            >
-                <Box
-                    backgroundColor="white"
-                    height="100%"
-                    width="100%"
-                    style={{ width: `${progress}%` }}
-                />
-            </Box>
-            {UXmessage ? <Text color="text.error">{UXmessage}</Text> : <></>}
+
+            <UXMessageDisplay UXMessage={UXmessage} />
+
             <Box display="flex" width="100%" justifyContent="space-around">
                 <Button colorScheme="red" type="button" onClick={removeImage}>
                     ANULER

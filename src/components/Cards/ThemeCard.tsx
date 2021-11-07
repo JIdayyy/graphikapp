@@ -15,7 +15,7 @@ export default function ThemeCard({ theme }: Props): ReactElement {
             backgroundColor="gray.800"
             border="2px"
             borderColor="gray.500"
-            borderRadius={8}
+            borderRadius={2}
         >
             <Box
                 height="60%"

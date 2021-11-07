@@ -8,12 +8,14 @@ interface Props {
     postFormData: BodyPicturePost;
     handleSelect: (e: ChangeEvent<HTMLSelectElement>) => void;
     label: string;
+    isLoading: boolean;
 }
 
 export default function ControlledSelect({
     themeList,
     postFormData,
     handleSelect,
+    isLoading,
     label,
 }: Props): ReactElement {
     return (
@@ -31,13 +33,17 @@ export default function ControlledSelect({
                 name="theme_id"
                 borderLeftRadius={0}
                 onChange={handleSelect}
+                value={postFormData.theme_id}
             >
-                {themeList &&
+                {!isLoading ? (
                     themeList.map((theme) => (
                         <option color="black" key={theme.id} value={theme.id}>
                             {theme.name}
                         </option>
-                    ))}
+                    ))
+                ) : (
+                    <div>Loading</div>
+                )}
             </Select>
         </InputGroup>
     );

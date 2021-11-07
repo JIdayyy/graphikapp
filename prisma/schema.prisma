@@ -11,36 +11,44 @@ datasource db {
 }
 
 model User {
-  id          String @id @default(uuid())
-  name        String
-  email       String
-  password    String
-  drawings    Drawing[]
-  comments   Comment[]
+  id       String    @id @default(uuid())
+  name     String    @unique
+  email    String    @unique
+  password String
+  drawings Drawing[]
+  comments Comment[]
+  roles   Role      @default(USER)
 }
 
 model Theme {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  drawings     Drawing[]
+  id       String    @id @default(uuid())
+  name     String    @unique
+  drawings Drawing[]
 }
 
 model Drawing {
-  id        String @id@default(uuid())
-  drawing_name      String @unique
-  url       String @unique
-  theme_id  String
-  theme     Theme @relation(fields: [theme_id], references: [id])
-  author    User @relation(fields: [author_id], references: [id])
-  author_id String
-  comments Comment[]
+  id           String    @id @default(uuid())
+  drawing_name String    @unique
+  url          String    @unique
+  theme_id     String
+  theme        Theme     @relation(fields: [theme_id], references: [id])
+  author       User      @relation(fields: [author_id], references: [id])
+  author_id    String
+  comments     Comment[]
+  isEnable     Boolean
 }
 
 model Comment {
-  id        String @id @default(uuid())
-  content   String
+  id         String  @id @default(uuid())
+  content    String
   drawing_id String
-  drawing   Drawing @relation(fields: [drawing_id], references: [id])
-  author_id String
-  author    User @relation(fields: [author_id], references: [id])
+  drawing    Drawing @relation(fields: [drawing_id], references: [id])
+  author_id  String
+  author     User    @relation(fields: [author_id], references: [id])
+}
+
+enum Role {
+  ADMIN
+  USER
+  CERTIFIED
 }
