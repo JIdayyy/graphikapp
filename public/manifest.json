@@ -1,8 +1,8 @@
 {
     "name": "Grafikapp",
     "short_name": "Graphikapp",
-    "theme_color": "#2196f3",
-    "background_color": "#2196f3",
+    "theme_color": "#F3444F",
+    "background_color": "#F3444F",
     "display": "fullscreen",
     "orientation": "portrait",
     "scope": "/",

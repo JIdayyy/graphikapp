@@ -27,6 +27,12 @@
             "@Prisma/*": ["prisma"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "pages/themes/[id]",
+        "pages/api/themes/[id]."
+    ],
     "exclude": ["node_modules"]
 }

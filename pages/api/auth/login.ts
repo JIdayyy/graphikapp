@@ -8,7 +8,7 @@ interface Data {
 
 const UserHandler = (
     req: NextApiRequest,
-    res: NextApiResponse<Data | Data[] | Error | null>,
+    res: NextApiResponse,
 ): Promise<void> | void => {
     if (req.method === "POST") {
         return auth.login(req, res);

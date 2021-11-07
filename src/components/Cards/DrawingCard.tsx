@@ -2,16 +2,15 @@ import React, { ReactElement } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
-import { Theme } from ".prisma/client";
+import { Drawing } from ".prisma/client";
 
 interface Props {
-    theme: Theme;
+    drawing: Drawing;
 }
 
-export default function ThemeCard({ theme }: Props): ReactElement {
-    console.log(theme);
+export default function DrawingCard({ drawing }: Props): ReactElement {
     return (
-        <Link passHref href={`/themes/${theme.id}/drawings`}>
+        <Link passHref href={`/drawings/${drawing.id}`}>
             <Box
                 width="47%"
                 height="35%"
@@ -22,7 +21,7 @@ export default function ThemeCard({ theme }: Props): ReactElement {
                 borderRadius={2}
             >
                 <Box height="60%" width="100%" position="relative">
-                    <Image src="/images/picture.jpg" layout="fill" />
+                    <Image src={drawing.url} layout="fill" />
                 </Box>
                 <Box
                     p={2}
@@ -32,10 +31,7 @@ export default function ThemeCard({ theme }: Props): ReactElement {
                     flexDirection="column"
                     justifyContent="space-between"
                 >
-                    <Text color="red.default">{theme.name}</Text>
-                    <Text fontSize="10" color="white">
-                        0 Dessins
-                    </Text>
+                    <Text color="red.default">{drawing.drawing_name}</Text>
                 </Box>
             </Box>
         </Link>

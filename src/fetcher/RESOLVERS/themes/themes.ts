@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import createTheme from "./createTheme";
 import deleteTheme from "./deleteTheme";
+import getDrawings from "./getDrawings";
 import getThemes from "./getThemes";
 
 const comment = {
@@ -14,6 +15,10 @@ const comment = {
         res: NextApiResponse,
         id: string | string[],
     ): Promise<void> => deleteTheme(req, res, id),
+    getDrawingsById: async (
+        req: NextApiRequest,
+        res: NextApiResponse,
+    ): Promise<void> => getDrawings(req, res),
 };
 
 export default comment;
