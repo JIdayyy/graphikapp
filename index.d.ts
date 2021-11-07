@@ -19,4 +19,16 @@ export type BodyPicturePost = {
     drawing_name?: string;
 };
 
+type ApiError = {
+    type: string;
+    message: string;
+    error?: unknown;
+};
+
+interface UserPayload {
+    email: string;
+    id: string;
+    role: Role;
+}
+
 type DrawingInput = Omit<Drawing.Drawing, "id">;

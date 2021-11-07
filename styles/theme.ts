@@ -6,7 +6,7 @@ const theme = extendTheme({
         body: "Archivo",
     },
     colors: {
-        purple: {
+        red: {
             default: "#F3444F",
         },
         background: {

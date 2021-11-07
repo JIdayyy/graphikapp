@@ -21,7 +21,7 @@ export default function Random(): ReactElement {
             alignItems="center"
         >
             <Dice />
-            <Button colorScheme="purple" onClick={() => rotate()}>
+            <Button colorScheme="red" onClick={() => rotate()}>
                 Fais tourner le dé
             </Button>
         </Box>

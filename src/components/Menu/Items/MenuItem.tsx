@@ -32,7 +32,7 @@ const MenuItem = ({ link }: Props): JSX.Element => (
             fontWeight="bold"
             fontSize="base"
             marginY="0.5rem"
-            color="purple.default"
+            color="red.default"
         >
             {link.name}
             <Image src={link.icon} width={24} height={24} />

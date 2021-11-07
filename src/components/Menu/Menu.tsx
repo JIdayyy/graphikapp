@@ -36,7 +36,7 @@ const Menu = forwardRef(
                     >
                         <Box
                             position="relative"
-                            backgroundColor="purple.default"
+                            backgroundColor="red.default"
                             height="30%"
                             width="100%"
                         >

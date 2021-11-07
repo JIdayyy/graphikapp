@@ -17,7 +17,7 @@ export default function ProgressBar({ progress }: Props): ReactElement {
             border="2px"
         >
             <Box
-                backgroundColor="purple.default"
+                backgroundColor="red.default"
                 height="100%"
                 width="100%"
                 style={{ width: `${progress}%` }}

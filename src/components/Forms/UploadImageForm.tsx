@@ -46,7 +46,7 @@ export default function UploadImageForm(): ReactElement {
     const { mutateAsync } = useMutation(
         (newImage: FormData) =>
             axiosInstance
-                .post("/upload", newImage, {
+                .post("/drawings/upload", newImage, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
@@ -151,7 +151,7 @@ export default function UploadImageForm(): ReactElement {
                 <Button colorScheme="red" type="button" onClick={removeImage}>
                     ANULER
                 </Button>
-                <Button colorScheme="purple" type="button" onClick={fileUpload}>
+                <Button colorScheme="red" type="button" onClick={fileUpload}>
                     ENVOYER
                 </Button>
             </Box>

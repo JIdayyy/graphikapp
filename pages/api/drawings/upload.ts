@@ -1,16 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/naming-convention */
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { IncomingForm } from "formidable";
 import cloudinary from "cloudinary";
-import createDrawing from "./lib/createDrawing";
-import { DrawingInput } from "../..";
-
-type ApiError = {
-    type: string;
-    message: string;
-};
+import createDrawing from "@Fetcher/RESOLVERS/drawings/createDrawing";
+import { ApiError, DrawingInput } from "../../..";
 
 export const config = {
     api: {
@@ -86,15 +80,17 @@ const UploadHandler = async (
                         newDrawing,
                     );
                 }
-                return result;
+                return error;
             },
         );
 
         return res.status(201).send({ drawing_url: cloudinaryRes.secure_url });
     } catch (error) {
-        return res
-            .status(500)
-            .send({ message: "Error during upload", type: "UPLOAD_ERROR" });
+        return res.status(500).send({
+            message: "Error during upload",
+            type: "UPLOAD_ERROR",
+            error,
+        });
     }
 };
 

@@ -11,7 +11,7 @@ export default function Footer(): ReactElement {
             zIndex={999}
             width="100%"
             bottom="0"
-            backgroundColor="purple.default"
+            backgroundColor="red.default"
             height="16"
             flexDirection="row"
             justifyContent="space-around"

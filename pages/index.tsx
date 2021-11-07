@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useState } from "react";
+import ThemeList from "@components/Lists/ThemeList";
 import ThemeCard from "../src/components/Cards/ThemeCard";
 import SwitchButton from "../src/components/Buttons/SwitchButton";
 import scrollBar from "../src/components/Assets/scrollBar";
@@ -41,9 +42,7 @@ const Home: NextPage = () => {
                 flexDirection="row"
                 justifyContent="start"
             >
-                {fakeThemes.map((theme) => (
-                    <ThemeCard key={theme} theme={theme} />
-                ))}
+                <ThemeList />
             </Box>
         </Box>
     );

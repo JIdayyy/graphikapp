@@ -18,12 +18,13 @@
         "paths": {
             "@components/*": ["src/components/*"],
             "@components": ["src/components"],
-            "@Fetcher": ["src/fetcher"],
+            "@Fetcher/*": ["src/fetcher/*"],
             "@Context/*": ["src/Context/*"],
             "@public/*": ["public/*"],
             "@public": ["public"],
             "@styles/*": ["src/styles/*"],
-            "@styles": ["src/styles"]
+            "@styles": ["src/styles"],
+            "@Prisma/*": ["prisma"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

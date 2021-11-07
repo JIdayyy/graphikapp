@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { DrawingInput } from "../../..";
-import prisma from "../../../prisma/client";
+import { DrawingInput } from "../../../..";
+import prisma from "../../../../prisma/client";
 
 const createDrawing = async (drawing: DrawingInput) => {
     const { drawing_name, author_id, theme_id, url } = drawing;
