@@ -23,6 +23,7 @@ export default function ThemeList(): ReactElement {
             display="flex"
             flexDirection="row"
             justifyContent="start"
+            alignContent="start"
         >
             {data.map((themeItem) => (
                 <ThemeCard key={themeItem.id} theme={themeItem} />

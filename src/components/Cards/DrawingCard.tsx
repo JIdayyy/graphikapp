@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function DrawingCard({ drawing }: Props): ReactElement {
-    console.log(drawing);
     return (
         <Link passHref href={`/drawings/${drawing.id}`}>
             <Box

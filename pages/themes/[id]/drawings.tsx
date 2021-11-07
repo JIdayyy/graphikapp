@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 import DrawingList from "@components/Lists/DrawingList";
 import scrollBar from "@components/Assets/scrollBar";
 
-export default function drawings(): ReactElement {
+export default function Drawings(): ReactElement {
     return (
         <Box
             sx={scrollBar}
@@ -15,7 +15,8 @@ export default function drawings(): ReactElement {
             width="100%"
             display="flex"
             flexDirection="column"
-            justifyContent="center"
+            justifyContent="start"
+            alignItems="start"
         >
             <DrawingList />
         </Box>
