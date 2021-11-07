@@ -1,6 +1,7 @@
 import Loader from "@components/Assets/Loader";
 import ThemeCard from "@components/Cards/ThemeCard";
 import { theme } from "@Fetcher/httpFetcher";
+import { Box } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useQuery } from "react-query";
 import { Theme } from ".prisma/client";
@@ -15,10 +16,17 @@ export default function ThemeList(): ReactElement {
     if (!data || data.length === 0) return <div>No themes found</div>;
 
     return (
-        <>
+        <Box
+            height="100%"
+            width="100%"
+            flexWrap="wrap"
+            display="flex"
+            flexDirection="row"
+            justifyContent="start"
+        >
             {data.map((themeItem) => (
                 <ThemeCard key={themeItem.id} theme={themeItem} />
             ))}
-        </>
+        </Box>
     );
 }

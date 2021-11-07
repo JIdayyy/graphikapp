@@ -2,10 +2,8 @@ import { Box } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useState } from "react";
 import ThemeList from "@components/Lists/ThemeList";
-import ThemeCard from "../src/components/Cards/ThemeCard";
 import SwitchButton from "../src/components/Buttons/SwitchButton";
 import scrollBar from "../src/components/Assets/scrollBar";
-import fakeThemes from "../src/FakeDatas/fakeThemes";
 
 const Home: NextPage = () => {
     const [isList, setIsList] = useState(false);
@@ -34,16 +32,8 @@ const Home: NextPage = () => {
                     type="Liste"
                 />
             </Box>
-            <Box
-                height="100%"
-                width="100%"
-                flexWrap="wrap"
-                display="flex"
-                flexDirection="row"
-                justifyContent="start"
-            >
-                <ThemeList />
-            </Box>
+
+            <ThemeList />
         </Box>
     );
 };

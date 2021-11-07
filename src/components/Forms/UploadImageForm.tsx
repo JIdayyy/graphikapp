@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable no-console */
-import React, { ChangeEvent, ReactElement, useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Box, Button } from "@chakra-ui/react";
 import { UserContext } from "@Context/UserContext";
@@ -10,12 +10,13 @@ import UXMessageDisplay from "@components/Assets/UXMessageDisplay";
 import ProgressPercentage from "@components/Assets/ProgressPercentage";
 import ProgressBar from "@components/Assets/ProgressBar";
 import ControlledSelect from "@components/Inputs/ControlledSelect";
+import Loader from "@components/Assets/Loader";
 import { BodyPicturePost, TTheme } from "../../..";
 import axiosInstance from "../../fetcher/axiosInstance";
 import ImagePreview from "../Image/ImagePreview";
 import ControlledFormWrapper from "./ControlledFormWrapper";
 
-export default function UploadImageForm(): ReactElement {
+export default function UploadImageForm(): JSX.Element {
     const { state } = useContext(UserContext);
     const [image, setImage] = useState<File | undefined>();
     const [imageResponse, setImageResponse] = useState<string>("");
@@ -43,7 +44,7 @@ export default function UploadImageForm(): ReactElement {
         },
     );
 
-    const { mutateAsync } = useMutation(
+    const { mutateAsync, isLoading: updating } = useMutation(
         (newImage: FormData) =>
             axiosInstance
                 .post("/drawings/upload", newImage, {
@@ -62,10 +63,11 @@ export default function UploadImageForm(): ReactElement {
             onSuccess: (data) => {
                 if (data !== undefined) {
                     setImageResponse(data.url);
+                    setUXMessage("DESSIN ENVOYE AVEC SUCCES !");
                 }
                 setPostFormData({
                     drawing_name: "",
-                    theme_id: "",
+                    theme_id: ThemeRes[0].id,
                 });
             },
             onError: (err) => {
@@ -77,6 +79,7 @@ export default function UploadImageForm(): ReactElement {
 
     const removeImage = () => {
         setImage(undefined);
+        setUXMessage("");
         setPostFormData({
             theme_id: ThemeRes[0].id,
             drawing_name: "",
@@ -125,6 +128,19 @@ export default function UploadImageForm(): ReactElement {
 
             <ControlledFileInput handleImage={handleImage} />
 
+            <>
+                {updating && (
+                    <Box
+                        zIndex={2}
+                        position="absolute"
+                        width="100%"
+                        height="100%"
+                        bg="rgba(0,0,0,0.9)"
+                    >
+                        <Loader />
+                    </Box>
+                )}
+            </>
             <ControlledSelect
                 isLoading={isLoading}
                 themeList={themeList}

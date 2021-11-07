@@ -43,6 +43,7 @@ export default function ControlledInput({
                 _placeholder={{ color: "gray.300" }}
                 border="2px"
                 onChange={handleChange}
+                z-index={1}
             />
             <InputRightElement children={<CheckIcon color="green.500" />} />
         </InputGroup>

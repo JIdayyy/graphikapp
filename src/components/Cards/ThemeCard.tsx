@@ -11,7 +11,7 @@ export default function ThemeCard({ theme }: Props): ReactElement {
     return (
         <Box
             width="47%"
-            height="30%"
+            height="35%"
             margin={1}
             backgroundColor="gray.800"
             border="2px"
