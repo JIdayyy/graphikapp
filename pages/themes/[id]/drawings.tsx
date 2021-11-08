@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { Box } from "@chakra-ui/react";
-
 import DrawingList from "@components/Lists/DrawingList";
 import scrollBar from "@components/Assets/scrollBar";
 

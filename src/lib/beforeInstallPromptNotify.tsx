@@ -3,9 +3,11 @@ import React from "react";
 import { Button, Box, Text } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-type THandleClick = () => void;
+interface IProps {
+    handleClick: () => void;
+}
 
-const notify = (handleClick: THandleClick) =>
+const notify = ({ handleClick }: IProps) =>
     toast(
         <Box display="flex" justifyContent="center" flexDirection="column">
             <Text textAlign="center">
@@ -16,13 +18,13 @@ const notify = (handleClick: THandleClick) =>
         </Box>,
     );
 
-export default function beforeInstallPromptNotify(
-    handleClick: THandleClick,
-): void {
+export default function beforeInstallPromptNotify({
+    handleClick,
+}: IProps): void {
     window.addEventListener("beforeinstallprompt", (event) => {
         console.log("👍", "beforeinstallprompt", event);
         // Stash the event so it can be triggered later.
         window.deferredPrompt = event;
-        notify(handleClick);
+        notify({ handleClick });
     });
 }

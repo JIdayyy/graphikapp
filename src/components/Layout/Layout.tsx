@@ -68,7 +68,7 @@ export default function Layout({ children }: IProps): ReactElement {
                     />
                 </Head>
                 <Box
-                    position="fixed"
+                    position="relative"
                     display="flex"
                     justifyContent="space-between"
                     flexDirection="column"
