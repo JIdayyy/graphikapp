@@ -6,8 +6,8 @@ const theme = extendTheme({
         body: "Archivo",
     },
     colors: {
-        purple: {
-            default: "#8C65CE",
+        red: {
+            default: "#F3444F",
         },
         background: {
             mobile: "#000000",

@@ -1,4 +1,4 @@
-import Drawing from ".prisma/client";
+import Drawing, { Role } from ".prisma/client";
 
 export type TDrawing = {
     id: string;
@@ -18,5 +18,17 @@ export type BodyPicturePost = {
     theme_id?: string;
     drawing_name?: string;
 };
+
+type ApiError = {
+    type: string;
+    message: string;
+    error?: unknown;
+};
+
+interface UserPayload {
+    email: string;
+    id: string;
+    role: Role;
+}
 
 type DrawingInput = Omit<Drawing.Drawing, "id">;

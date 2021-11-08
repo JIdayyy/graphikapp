@@ -4,7 +4,7 @@ const scrollBar = {
     },
     "&::-webkit-scrollbar-thumb": {
         borderRadius: "20px",
-        backgroundColor: "purple.default",
+        backgroundColor: "red.default",
     },
 };
 

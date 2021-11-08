@@ -1,33 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../prisma/client";
+import theme from "@Fetcher/RESOLVERS/themes/themes";
 
-type ApiError = {
-    type: string;
-    message: string;
-};
-type Theme = {
-    id: string;
-    name: string;
-};
-
-const ThemeHandler = async (
-    req: NextApiRequest,
-    res: NextApiResponse<Theme[] | ApiError | { message: string }>,
-) => {
+const ThemeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "GET") {
-        try {
-            const themes = await prisma.theme.findMany();
-            res.status(200).json(themes);
-        } catch (error) {
-            res.status(500).json({ message: "error", type: "API_ERROR" });
-        }
+        return theme.get(req, res);
     }
-    // if (req.method === "POST") {
-    // }
-    // if (req.method === "PUT") {
-    // }
-    // if (req.method === "DELETE") {
-    // }
+    if (req.method === "POST") {
+        return theme.create(req, res);
+    }
+    throw new Error("Method not allowed");
 };
 
 export default ThemeHandler;

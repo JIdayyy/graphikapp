@@ -5,5 +5,5 @@ tailwind.config.js
 postcss.config.js
 sw.js
 sw.js.map
-
+captain-definition
 workbox-*.js

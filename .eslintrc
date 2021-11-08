@@ -18,6 +18,7 @@
         "browser": true,
         "amd": true
     },
+    "ignorePatterns": ["register.js"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true

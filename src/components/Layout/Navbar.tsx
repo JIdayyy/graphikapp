@@ -13,11 +13,9 @@ export default function Navbar({ setIsMenu }: IProps): ReactElement {
     return (
         <Box
             p={4}
-            zIndex={1000}
-            position="fixed"
-            top="0"
+            zIndex={100}
             shadow="dark-lg"
-            backgroundColor="purple.default"
+            backgroundColor="red.default"
             height="28"
             width="100%"
             flexDirection="column"

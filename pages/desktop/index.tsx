@@ -16,7 +16,7 @@ const DESKTOP_HOME: NextPage = () => (
         flexDirection="column"
     >
         {fakeThemes.map((theme) => (
-            <Box>
+            <Box key={theme}>
                 <Text color="white">{theme}</Text>
                 <DrawingsCarousel theme={theme} />
             </Box>

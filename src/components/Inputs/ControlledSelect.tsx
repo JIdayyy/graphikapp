@@ -1,48 +1,49 @@
 /* eslint-disable react/no-children-prop */
 import React, { ChangeEvent, ReactElement } from "react";
-import { BsCheckLg } from "react-icons/bs";
-import {
-    Select,
-    InputGroup,
-    InputLeftAddon,
-    InputRightElement,
-} from "@chakra-ui/react";
+import { Select, InputGroup, InputLeftAddon } from "@chakra-ui/react";
 import { BodyPicturePost, TTheme } from "../../..";
 
 interface Props {
     themeList: TTheme[];
     postFormData: BodyPicturePost;
     handleSelect: (e: ChangeEvent<HTMLSelectElement>) => void;
+    label: string;
+    isLoading: boolean;
 }
 
 export default function ControlledSelect({
     themeList,
     postFormData,
     handleSelect,
+    isLoading,
+    label,
 }: Props): ReactElement {
     return (
         <InputGroup>
             <InputLeftAddon
                 backgroundColor="gray.300"
                 color="black"
-                children="Theme"
+                children={label}
             />
             <Select
                 bg="white"
                 color="gray.700"
-                placeholder="Theme"
                 boxShadow="inset 0px 1px 8px rgba(0, 0, 0, 0.5)"
                 backgroundColor="gray.300"
                 name="theme_id"
                 borderLeftRadius={0}
-                value={postFormData?.theme_id}
                 onChange={handleSelect}
+                value={postFormData.theme_id}
             >
-                {themeList.map((theme) => (
-                    <option color="black" key={theme.id} value={theme.id}>
-                        {theme.name}
-                    </option>
-                ))}
+                {!isLoading ? (
+                    themeList.map((theme) => (
+                        <option color="black" key={theme.id} value={theme.id}>
+                            {theme.name}
+                        </option>
+                    ))
+                ) : (
+                    <div>Loading</div>
+                )}
             </Select>
         </InputGroup>
     );

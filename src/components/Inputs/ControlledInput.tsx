@@ -1,25 +1,26 @@
 /* eslint-disable react/no-children-prop */
 import React, { ChangeEvent, ReactElement } from "react";
-import { BsCheckLg } from "react-icons/bs";
+import { CheckIcon } from "@chakra-ui/icons";
 import {
     Input,
     InputGroup,
     InputLeftAddon,
     InputRightElement,
 } from "@chakra-ui/react";
-import { BodyPicturePost, TTheme } from "../../..";
 
 interface Props {
     name: string;
+    label: string;
     placeholder: string;
-    postFormData: BodyPicturePost;
+    value: string | undefined;
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function ControlledInput({
-    postFormData,
+    value,
     handleChange,
     name,
+    label,
     placeholder,
 }: Props): ReactElement {
     return (
@@ -27,7 +28,7 @@ export default function ControlledInput({
             <InputLeftAddon
                 backgroundColor="gray.200"
                 color="black"
-                children="Auteur"
+                children={label}
             />
             <Input
                 color="black"
@@ -36,14 +37,15 @@ export default function ControlledInput({
                 backgroundColor="gray.300"
                 width="100%"
                 type="text"
-                value={postFormData?.author_id}
-                name="author_id"
-                placeholder="Auteur"
+                value={value}
+                name={name}
+                placeholder={placeholder}
                 _placeholder={{ color: "gray.300" }}
                 border="2px"
                 onChange={handleChange}
+                z-index={1}
             />
-            <InputRightElement children={<BsCheckLg color="green.500" />} />
+            <InputRightElement children={<CheckIcon color="green.500" />} />
         </InputGroup>
     );
 }
