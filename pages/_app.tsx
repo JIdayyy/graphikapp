@@ -2,17 +2,21 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider, CSSReset, Button } from "@chakra-ui/react";
+import { ChakraProvider, CSSReset, Container } from "@chakra-ui/react";
 import "@fontsource/archivo";
 import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "nprogress/nprogress.css";
 import "react-multi-carousel/lib/styles.css";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import showPWAPrompt from "src/lib/showPWAPrompt";
 import { UserContextProvider } from "@Context/UserContext";
+import Image from "next/image";
+import Loader from "@components/Assets/Loader";
+import beforeInstallPromptNotify from "src/lib/beforeInstallPromptNotify";
 import pwaTrackingListeners from "../scripts/pwaEventlisteners";
 import Layout from "../src/components/Layout/Layout";
 import DesktopLayout from "../src/components/Layout/DesktopLayout";
@@ -38,23 +42,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
 
     const handleClick = () => {
-        if (window.deferredPrompt) {
-            window.deferredPrompt.prompt();
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            window.deferredPrompt.userChoice.then((choiceResult: any) => {
-                console.log("👍", "userChoice", choiceResult);
-                window.deferredPrompt = null;
-            });
-        }
+        showPWAPrompt();
     };
-    const notify = () =>
-        toast(
-            <div>
-                <Button onClick={handleClick}>INSTALL ! 🖥️</Button>
-                This app can be install on your phone/computer. Please click the
-                install button to install the app.
-            </div>,
-        );
 
     useEffect(() => {
         checkMobile(setIsDesktop, router);
@@ -62,12 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         if (isBrowser) {
             pwaTrackingListeners();
         }
-        window.addEventListener("beforeinstallprompt", (event) => {
-            console.log("👍", "beforeinstallprompt", event);
-            // Stash the event so it can be triggered later.
-            window.deferredPrompt = event;
-            notify();
-        });
+        beforeInstallPromptNotify(handleClick);
     }, []);
 
     useEffect(() => {
@@ -91,7 +75,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         }
     }, []);
 
-    if (isDesktop === null) return <div>Loading</div>;
+    if (isDesktop === null)
+        return (
+            <Container
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                height="100vh"
+                backgroundColor="black"
+            >
+                <Loader />
+            </Container>
+        );
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -115,7 +111,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                         )}
                     </>
                 </UserContextProvider>
-                <ToastContainer autoClose={10000} />
+                <ToastContainer autoClose={5000} />
             </ChakraProvider>
         </QueryClientProvider>
     );

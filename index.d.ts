@@ -1,4 +1,4 @@
-import Drawing from ".prisma/client";
+import Drawing, { Role } from ".prisma/client";
 
 export type TDrawing = {
     id: string;

@@ -29,7 +29,8 @@ const nextConfig = withPWA({
     },
     pwa: {
         dest: "public",
-        register: false,
+        register: true,
+        disable: process.env.NODE_ENV === "development",
         runtimeCaching,
     },
 });
