@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable no-console */
 import React, { ChangeEvent, useContext, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Box, Button } from "@chakra-ui/react";
 import { UserContext } from "@Context/UserContext";
 import ControlledInput from "@components/Inputs/ControlledInput";

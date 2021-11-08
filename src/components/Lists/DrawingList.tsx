@@ -1,5 +1,4 @@
 import Loader from "@components/Assets/Loader";
-import ThemeCard from "@components/Cards/ThemeCard";
 import { theme } from "@Fetcher/httpFetcher";
 import { Box } from "@chakra-ui/react";
 import React, { ReactElement } from "react";

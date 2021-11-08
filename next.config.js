@@ -29,6 +29,7 @@ const nextConfig = withPWA({
     },
     pwa: {
         dest: "public",
+        register: false,
         runtimeCaching,
     },
 });

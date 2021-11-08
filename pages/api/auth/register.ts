@@ -1,11 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import auth from "@Fetcher/RESOLVERS/auth/auth";
 
-interface Data {
-    email: string;
-    password: string;
-}
-
 const RegisterHandler = (
     req: NextApiRequest,
     res: NextApiResponse,

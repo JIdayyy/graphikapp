@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function ThemeCard({ theme }: Props): ReactElement {
-    console.log(theme);
     return (
         <Link passHref href={`/themes/${theme.id}/drawings`}>
             <Box

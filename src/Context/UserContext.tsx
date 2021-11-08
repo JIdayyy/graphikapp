@@ -33,7 +33,7 @@ export const UserContext = createContext<{
 export const UserContextProvider = ({
     children,
 }: {
-    children: JSX.Element[];
+    children: JSX.Element;
 }): JSX.Element => {
     const [state, dispatch] = useReducer(appReducer, AppContextDefault);
     return (

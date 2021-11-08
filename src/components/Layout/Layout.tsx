@@ -62,6 +62,10 @@ export default function Layout({ children }: IProps): ReactElement {
                         content="#8C65CE"
                     />
                     <link rel="apple-touch-icon" href="/about.png" />
+                    <meta
+                        name="viewport"
+                        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+                    />
                 </Head>
                 <Box
                     position="fixed"
