@@ -39,10 +39,12 @@ export default function Navbar({ setIsMenu }: IProps): ReactElement {
             </Box>
             <InputGroup>
                 <InputLeftElement pointerEvents="none">
-                    <FaSearch color="gray.300" />
+                    <FaSearch color="red" />
                 </InputLeftElement>
                 <Input
                     backgroundColor="white"
+                    color="black"
+                    _placeholder={{ color: "red.default" }}
                     type="tel"
                     placeholder="Rechercher un Theme ..."
                 />
