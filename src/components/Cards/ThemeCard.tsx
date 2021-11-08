@@ -2,6 +2,9 @@ import React, { ReactElement } from "react";
 import { Box } from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "react-query";
+import { theme as themeFetcher } from "@Fetcher/httpFetcher";
+import Loader from "@components/Assets/Loader";
 import { Theme } from ".prisma/client";
 
 interface Props {
@@ -9,6 +12,14 @@ interface Props {
 }
 
 export default function ThemeCard({ theme }: Props): ReactElement {
+    const { data, isLoading, error } = useQuery(
+        `getMainDrawing[${theme.id}]`,
+        () => themeFetcher.getDrawings(theme.id),
+    );
+
+    if (isLoading) <Loader />;
+    if (!data || error) return <></>;
+
     return (
         <Link passHref href={`/themes/${theme.id}/drawings`}>
             <Box
@@ -25,7 +36,14 @@ export default function ThemeCard({ theme }: Props): ReactElement {
                     position="relative"
                     overflow="hidden"
                 >
-                    <Image src="/images/picture.jpg" layout="fill" />
+                    <Image
+                        src={
+                            data.length !== 0
+                                ? data[0].url
+                                : "/images/placeholder.png"
+                        }
+                        layout="fill"
+                    />
                 </Box>
             </Box>
         </Link>

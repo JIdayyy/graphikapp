@@ -13,7 +13,7 @@ export default function Footer(): ReactElement {
             bottom={0}
             backgroundColor="navbar.default"
             position="fixed"
-            height="16"
+            height="10"
             flexDirection="row"
             justifyContent="space-around"
             alignItems="center"
@@ -23,8 +23,19 @@ export default function Footer(): ReactElement {
                 <button type="button">
                     <Image
                         src="/icons/FooterIcons/dots.png"
-                        width={50}
-                        height={50}
+                        width={25}
+                        height={25}
+                        quality={100}
+                        priority
+                    />
+                </button>
+            </Link>
+            <Link passHref href="/">
+                <button type="button">
+                    <Image
+                        src="/icons/FooterIcons/folder_open.png"
+                        width={25}
+                        height={25}
                         quality={100}
                         priority
                     />
@@ -33,9 +44,9 @@ export default function Footer(): ReactElement {
             <Link passHref href="/upload">
                 <button type="button">
                     <Image
-                        src="/icons/FooterIcons/drawings_icon.png"
-                        width={30}
-                        height={30}
+                        src="/icons/FooterIcons/cloud_upload.png"
+                        width={25}
+                        height={25}
                         quality={100}
                         priority
                     />
@@ -46,8 +57,8 @@ export default function Footer(): ReactElement {
                 <button type="button">
                     <Image
                         src="/icons/FooterIcons/dice.png"
-                        width={30}
-                        height={30}
+                        width={25}
+                        height={25}
                         quality={100}
                         priority
                     />

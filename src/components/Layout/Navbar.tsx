@@ -53,25 +53,7 @@ export default function Navbar(): ReactElement {
                 <GoSettings color="white" size={20} />
                 <HStack sx={NavScrollBar} overflowX="scroll" width="100%">
                     {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
-                    ))}
-                    {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
-                    ))}
-                    {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
-                    ))}
-                    {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
-                    ))}
-                    {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
-                    ))}
-                    {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
-                    ))}
-                    {data?.map((themeItem) => (
-                        <Text>{themeItem.name}</Text>
+                        <Text whiteSpace="nowrap">{themeItem.name}</Text>
                     ))}
                 </HStack>
             </HStack>

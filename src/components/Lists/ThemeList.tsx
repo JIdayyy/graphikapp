@@ -26,33 +26,10 @@ export default function ThemeList(): ReactElement {
             display="flex"
             flexDirection="row"
             justifyContent="start"
-            paddingY="100px"
+            paddingTop="100px"
+            paddingBottom="40px"
             alignContent="start"
         >
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
-            {data.map((themeItem) => (
-                <ThemeCard key={themeItem.id} theme={themeItem} />
-            ))}
             {data.map((themeItem) => (
                 <ThemeCard key={themeItem.id} theme={themeItem} />
             ))}

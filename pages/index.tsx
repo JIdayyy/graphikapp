@@ -11,6 +11,7 @@ const Home: NextPage = () => (
         display="flex"
         flexDirection="column"
         justifyContent="center"
+        alignItems="center"
     >
         <ThemeList />
     </Box>
