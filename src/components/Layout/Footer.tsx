@@ -10,8 +10,9 @@ export default function Footer(): ReactElement {
             shadow="dark-lg"
             zIndex={999}
             width="100%"
-            bottom="0"
-            backgroundColor="red.default"
+            bottom={0}
+            backgroundColor="navbar.default"
+            position="fixed"
             height="16"
             flexDirection="row"
             justifyContent="space-around"
@@ -32,7 +33,7 @@ export default function Footer(): ReactElement {
             <Link passHref href="/upload">
                 <button type="button">
                     <Image
-                        src="/icons/FooterIcons/draws.png"
+                        src="/icons/FooterIcons/drawings_icon.png"
                         width={30}
                         height={30}
                         quality={100}

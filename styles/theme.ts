@@ -9,6 +9,9 @@ const theme = extendTheme({
         red: {
             default: "#F3444F",
         },
+        navbar: {
+            default: "rgba(10,10,10,0.9)",
+        },
         background: {
             mobile: "#000000",
             desktop: "#141414",

@@ -1,25 +1,35 @@
-import { Input, Box, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import React, { ReactElement } from "react";
+import { useQuery } from "react-query";
+import { theme } from "@Fetcher/httpFetcher";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { HiDocumentAdd } from "react-icons/hi";
+import { MdNotificationsNone } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import Loader from "@components/Assets/Loader";
+import { GoSettings } from "react-icons/go";
+import { NavScrollBar } from "@components/Assets/scrollBar";
+import { Theme } from ".prisma/client";
 
-import React, { Dispatch, ReactElement, SetStateAction } from "react";
+export default function Navbar(): ReactElement {
+    const { data, isLoading, error } = useQuery<Theme[]>("getTheme", () =>
+        theme.getAll(),
+    );
 
-interface IProps {
-    setIsMenu: Dispatch<SetStateAction<boolean>>;
-}
+    if (isLoading) return <Loader />;
+    if (error) return <Text>Error</Text>;
+    if (!data || data.length === 0) return <Text>No data</Text>;
 
-export default function Navbar({ setIsMenu }: IProps): ReactElement {
     return (
         <Box
             p={4}
             zIndex={100}
             shadow="dark-lg"
-            backgroundColor="red.default"
-            height="28"
+            backgroundColor="navbar.default"
             width="100%"
+            position="fixed"
+            top={0}
             flexDirection="column"
-            justifyContent="space-around"
+            justifyContent="space-between"
             alignItems="center"
             display="flex"
         >
@@ -27,28 +37,44 @@ export default function Navbar({ setIsMenu }: IProps): ReactElement {
                 zIndex={10}
                 width="100%"
                 display="flex"
+                flexDirection="row"
+                alignItems="center"
                 justifyContent="space-between"
             >
-                <GiHamburgerMenu
-                    cursor="pointer"
-                    onClick={() => setIsMenu((c) => !c)}
-                    size={30}
-                    color="white"
-                />
-                <HiDocumentAdd size={30} color="white" />
+                <Text fontWeight="bold">GRAFIKAPP</Text>
+
+                <HStack spacing={4}>
+                    <FaSearch color="white" size={17} />
+                    <MdNotificationsNone color="white" size={20} />
+                    <CgProfile color="white" size={20} />
+                </HStack>
             </Box>
-            <InputGroup>
-                <InputLeftElement pointerEvents="none">
-                    <FaSearch color="red" />
-                </InputLeftElement>
-                <Input
-                    backgroundColor="white"
-                    color="black"
-                    _placeholder={{ color: "red.default" }}
-                    type="tel"
-                    placeholder="Rechercher un Theme ..."
-                />
-            </InputGroup>
+            <HStack width="100%" marginTop={2}>
+                <GoSettings color="white" size={20} />
+                <HStack sx={NavScrollBar} overflowX="scroll" width="100%">
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                    {data?.map((themeItem) => (
+                        <Text>{themeItem.name}</Text>
+                    ))}
+                </HStack>
+            </HStack>
         </Box>
     );
 }

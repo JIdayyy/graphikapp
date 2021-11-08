@@ -4,6 +4,7 @@ import { theme } from "@Fetcher/httpFetcher";
 import { Box } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { useQuery } from "react-query";
+import scrollBar from "@components/Assets/scrollBar";
 import { Theme } from ".prisma/client";
 
 export default function ThemeList(): ReactElement {
@@ -20,11 +21,38 @@ export default function ThemeList(): ReactElement {
             height="100%"
             width="100%"
             flexWrap="wrap"
+            sx={scrollBar}
+            overflowY="scroll"
             display="flex"
             flexDirection="row"
             justifyContent="start"
+            paddingY="100px"
             alignContent="start"
         >
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
+            {data.map((themeItem) => (
+                <ThemeCard key={themeItem.id} theme={themeItem} />
+            ))}
             {data.map((themeItem) => (
                 <ThemeCard key={themeItem.id} theme={themeItem} />
             ))}

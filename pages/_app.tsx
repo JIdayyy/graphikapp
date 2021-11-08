@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import showPWAPrompt from "src/lib/showPWAPrompt";
 import { UserContextProvider } from "@Context/UserContext";
-import Image from "next/image";
 import Loader from "@components/Assets/Loader";
 import beforeInstallPromptNotify from "src/lib/beforeInstallPromptNotify";
 import pwaTrackingListeners from "../scripts/pwaEventlisteners";

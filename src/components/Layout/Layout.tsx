@@ -70,13 +70,13 @@ export default function Layout({ children }: IProps): ReactElement {
                 <Box
                     position="fixed"
                     display="flex"
-                    justifyContent="space-between"
+                    justifyContent="center"
                     flexDirection="column"
                     height="100%"
                     width="100%"
                 >
                     <Menu ref={ref} isMenu={isMenu} />
-                    <Navbar setIsMenu={setIsMenu} />
+                    <Navbar />
                     {children}
                     <Footer />
                 </Box>
